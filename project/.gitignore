@@ -1,0 +1,5 @@
+*.pyc
+*.swp
+gmail_config.py
+emails.py
+
