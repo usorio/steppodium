@@ -1,11 +1,8 @@
 from flask import Flask
 from flask_mail import Mail
-from gmail_config import MAIL_USERNAME, MAIL_PASSWORD
+from gmail_config import MAIL_USERNAME, MAIL_PASSWORD, SECRET_KEY
 
-#initiate application
-app = Flask(__name__)
-
-# email server
+# set config mail server
 DEBUG = True
 MAIL_SERVER = 'smtp.googlemail.com'
 MAIL_PORT = 465
@@ -14,8 +11,12 @@ MAIL_USE_SSL = True
 MAIL_USERNAME = MAIL_USERNAME
 MAIL_PASSWORD = MAIL_PASSWORD
 MAIL_DEFAULT_SENDER = MAIL_USERNAME
+SECRET_KEY = SECRET_KEY
 
-#set config
+#initiate application
+app = Flask(__name__)
+
+#initiate config
 app.config.from_object(__name__)
 
 #initialize mail: note after config set
