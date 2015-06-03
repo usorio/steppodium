@@ -8,7 +8,7 @@ from sforms import emailOnly, loginUser, registerUser
 def welcome():
     form = emailOnly()
     if form.validate_on_submit():
-        return render_template('login.html')
+        return redirect(url_for('login'))
     else:
         flash_errors(form)
 
