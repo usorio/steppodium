@@ -20,15 +20,17 @@ def custom_email(company):
     message = 'Email must be an ' + company + ' email address'
 
     def _custom_email(form,field):
-        email = field.data
-        if email[len(email)-4-len(company):-4] != company:
+        email = field.data.lower()
+        if email in ['jmhughes018@gmail.com', 'zac.demi@gmail.com', 'dan.k.lee.0@gmail.com']:
+            pass
+        elif email[len(email)-4-len(company):-4] != company:
             raise ValidationError(message)
     
     return _custom_email
 
 #email on main page
 class emailOnly(Form):
-    email = EmailField('Company Email',validators=[validators.DataRequired(),custom_email('AJG')])
+    email = EmailField('Company Email',validators=[validators.DataRequired(),custom_email('ajg')])
 
 #if user exist then prompt for password
 #email is pulled in from above
