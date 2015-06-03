@@ -35,7 +35,7 @@ class emailOnly(Form):
 #if user exist then prompt for password
 #email is pulled in from above
 class loginUser(emailOnly):
-    password = PasswordField('Enter Password',[validators.DataRequired])
+    password = PasswordField('Enter Password',validators=[validators.DataRequired()])
 
 #if user does not exist then redirect to register
 class registerUser(Form):
