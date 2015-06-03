@@ -32,7 +32,7 @@ class emailOnly(Form):
 
 #if user exist then prompt for password
 #email is pulled in from above
-class login(emailOnly):
+class loginUser(emailOnly):
     password = PasswordField('Enter Password',[validators.DataRequired])
 
 #if user does not exist then redirect to register
