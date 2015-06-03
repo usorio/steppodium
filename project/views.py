@@ -25,7 +25,8 @@ def register():
     form = registerUser()
     if form.validate_on_submit():
         return "Success!"
-
+    else: 
+        flash_errors(form)
     return render_template('register.html',form=form)
 
 def flash_errors(form):

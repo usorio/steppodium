@@ -37,9 +37,9 @@ class login(emailOnly):
 
 #if user does not exist then redirect to register
 class registerUser(Form):
-    display_name = StringField('Display name')
+    display_name = StringField('Display Name')
     password = PasswordField('Enter Password',validators=[
-        validators.DataRequired,
+        validators.DataRequired(),
         validators.EqualTo('confirm', message = 'Passwords must match')])
     confirm = PasswordField('Repeat Password')
     position = SelectField('Job Title',choices=tuple_list(positions))
