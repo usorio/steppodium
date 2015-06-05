@@ -2,12 +2,11 @@ from flask import request, redirect, render_template, url_for, flash
 from project import app,mail
 from flask_mail import Message
 from sforms import emailOnly, loginUser, registerUser
-from podium import sendemail, sendconfirm
+import podium
 
 @app.route("/josh", methods = ['GET','POST'])
 def josh():
-    sendconfirm()
-    # sendemail('Test3', 'jmhughes018@gmail.com', ['jmhughes018@gmail.com'], 'It works!')
+    podium.sendconfirm()
     return "good job"
 
 @app.route("/",methods = ['GET','POST'])
@@ -15,8 +14,11 @@ def welcome():
     form = emailOnly()
     if form.validate_on_submit():
         email = form.email.data
-        sendconfirm(email)
-        flash("Thanks for signing up! Check your email for a confirmation link!")
+        if podium.user_exists(email):
+            flash("You are already registered!")
+        else:
+            podium.insert_user(email)
+            flash("Thanks for signing up! Check your email for a confirmation link!")
     else:
         flash_errors(form)
 

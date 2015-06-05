@@ -4,6 +4,10 @@ from flask_mail import Message
 from bson.objectid import ObjectId
 from datetime import datetime
 
+#define user database
+db = client.steppodium
+user = db.users
+
 def sendemail(esubject, esender, erecipients, ehtml):
 #    esubject = "Sample Subject"
 #    esender = "jmhughes018@gmail.com"
@@ -15,18 +19,23 @@ def sendemail(esubject, esender, erecipients, ehtml):
 
     mail.send(msg)
 
-def sendconfirm(email):
+def sendconfirm(email, user_id):
     erecipients = list(email)
     esubject, esender, erecipients = 'Registration Confirmed!', 'jmhughes018@gmail.com', ['zac_demi@ajg.com', 'jmhughes018@gmail.com']
-    ehtml = render_template('email-premailer.html')
+    ehtml = render_template('email-premailer.html',user_id=user_id)
     sendemail(esubject, esender, erecipients, ehtml)
 
-#define user database
-db = client.steppodium
-user = db.users
+def user_exists(email):
+    in_database = users.find({"email":email}).count()
+    if in_database == 0:
+        return False
+    else:
+        return True
 
-def insert_user(email):
-    user.insert({"email":email})
+def insert_user(email, *args):
+    users.insert({"email":email,"podium_client":"ajg"})
+    user_id = return_id(email)
+    sendconfirm(email,user_id)
 
 def update_user(_id,dname,pwd,job,office):
     users.update({"_id":ObjectId(_id)},{"$set":{"display_name":dname,
@@ -36,4 +45,9 @@ def add_steps(_id,steps):
     date = datetime.now()
     entry = {steps,date}
     users.update({"_id":ObjectId(_id)},{"$push":{"steps":entry}})
+
+def return_id(email):
+    user = users.find_one({"email":email})
+    user_id = user["_id"]
+    return user_id
 
