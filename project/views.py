@@ -2,7 +2,11 @@ from flask import request, redirect, render_template, url_for, flash
 from project import app,mail
 from flask_mail import Message
 from sforms import emailOnly, loginUser, registerUser
+<<<<<<< HEAD
 from podium import sendemail, sendconfirm
+=======
+from podium import sendconfirm
+>>>>>>> 6c4c540a6134cf70dfcb991fb6124137d315f8f6
 
 @app.route("/josh", methods = ['GET','POST'])
 def josh():
@@ -14,7 +18,9 @@ def josh():
 def welcome():
     form = emailOnly()
     if form.validate_on_submit():
-        return redirect(url_for('login'))
+        email = form.email.data
+        sendconfrim(email)
+        flash("Thanks for signing up! Check your email for confrimation link!")
     else:
         flash_errors(form)
 
