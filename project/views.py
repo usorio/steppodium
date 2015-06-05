@@ -35,10 +35,13 @@ def login():
 
     return render_template('login.html',form=form)
 
-@app.route("/register", methods = ['GET','POST'])
-def register():
+@app.route("/register/<user_id>/", methods = ['GET','POST'])
+def register(user_id):
     form = registerUser()
     if form.validate_on_submit():
+        dname, pwd  = form.display_name.data, form.password.data
+        position, office = form.position.data, form.office.data
+        podium.update_user(dname,pwd,position,office)
         return render_template('success.html')
     else: 
         flash_errors(form)

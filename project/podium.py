@@ -3,6 +3,7 @@ from project import app, mail, client
 from flask_mail import Message
 from bson.objectid import ObjectId
 from datetime import datetime
+import gmail_config
 
 #define user database
 db = client.steppodium
@@ -20,8 +21,7 @@ def sendemail(esubject, esender, erecipients, ehtml):
     mail.send(msg)
 
 def sendconfirm(email, user_id):
-    erecipients = list(email)
-    esubject, esender, erecipients = 'You are almost registered!', 'jmhughes018@gmail.com', ['zac_demi@ajg.com', 'jmhughes018@gmail.com']
+    esubject, esender, erecipients  = 'You are almost registered!', gmail_config.MAIL_USERNAME, list(email)
     ehtml = render_template('email-premailer.html',user_id=user_id)
     sendemail(esubject, esender, erecipients, ehtml)
 
@@ -37,9 +37,9 @@ def insert_user(email, *args):
     user_id = return_id(email)
     sendconfirm(email,user_id)
 
-def update_user(_id,dname,pwd,job,office):
+def update_user(_id,dname,pwd,position,office):
     user.update({"_id":ObjectId(_id)},{"$set":{"display_name":dname,
-                "password":frequency,"job_title":job,"office":office}})
+                "password":pwd,"position":position,"office":office}})
 
 def add_steps(_id,steps):
     date = datetime.now()
@@ -47,7 +47,7 @@ def add_steps(_id,steps):
     user.update({"_id":ObjectId(_id)},{"$push":{"steps":entry}})
 
 def return_id(email):
-    user = user.find_one({"email":email})
-    user_id = user["_id"]
+    user_email = user.find_one({"email":email})
+    user_id = user_email["_id"]
     return user_id
 
