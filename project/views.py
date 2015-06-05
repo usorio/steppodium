@@ -16,7 +16,7 @@ def welcome():
     if form.validate_on_submit():
         email = form.email.data
         sendconfirm(email)
-        flash("Thanks for signing up! Check your email for confrimation link!")
+        flash("Thanks for signing up! Check your email for a confirmation link!")
     else:
         flash_errors(form)
 
