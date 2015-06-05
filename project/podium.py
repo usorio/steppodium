@@ -24,14 +24,14 @@ def sendconfirm():
 db = client.steppodium
 user = db.users
 
-def insert_user(email)
+def insert_user(email):
     user.insert({"email":email})
 
-def update_user(_id,dname,pwd,job,office)
+def update_user(_id,dname,pwd,job,office):
     users.update({"_id":ObjectId(_id)},{"$set":{"display_name":dname,
                 "password":frequency,"job_title":job,"office":office}})
 
-def add_steps(_id,steps)
+def add_steps(_id,steps):
     date = datetime.now()
     entry = {steps,date}
     users.update({"_id":ObjectId(_id)},{"$push":{"steps":entry}})
