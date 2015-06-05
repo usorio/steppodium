@@ -2,12 +2,14 @@ from flask import request, redirect, render_template, url_for, flash
 from project import app,mail
 from flask_mail import Message
 from sforms import emailOnly, loginUser, registerUser
-from podium import sendemail
+from podium import sendemail, sendconfirm
 
 @app.route("/josh", methods = ['GET','POST'])
 def josh():
-    sendemail
+    sendconfirm()
+    # sendemail('Test3', 'jmhughes018@gmail.com', ['jmhughes018@gmail.com'], 'It works!')
     return "good job"
+
 @app.route("/",methods = ['GET','POST'])
 def welcome():
     form = emailOnly()
