@@ -23,9 +23,10 @@ app.config.from_object(__name__)
 #initialize mail: note after config set
 mail = Mail(app)
 
+#initiate MONGODB
+client = MongoClient()
+
 #initialize views
 from project import views
 
-#initiate MONGODB
-client = MongoClient()
 

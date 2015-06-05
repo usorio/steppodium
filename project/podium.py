@@ -15,7 +15,8 @@ def sendemail(esubject, esender, erecipients, ehtml):
 
     mail.send(msg)
 
-def sendconfirm():
+def sendconfirm(email):
+    erecipients = list(email)
     esubject, esender, erecipients = 'Registration Confirmed!', 'jmhughes018@gmail.com', ['zac_demi@ajg.com', 'jmhughes018@gmail.com']
     ehtml = render_template('email-premailer.html')
     sendemail(esubject, esender, erecipients, ehtml)
