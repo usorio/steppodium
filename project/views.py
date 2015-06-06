@@ -41,7 +41,7 @@ def register(user_id):
     if form.validate_on_submit():
         dname, pwd  = form.display_name.data, form.password.data
         position, office = form.position.data, form.office.data
-        podium.update_user(dname,pwd,position,office)
+        podium.update_user(user_id, dname, pwd, position, office)
         return render_template('success.html')
     else: 
         flash_errors(form)

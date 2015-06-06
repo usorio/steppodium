@@ -10,18 +10,15 @@ db = client.steppodium
 user = db.users
 
 def sendemail(esubject, esender, erecipients, ehtml):
-#    esubject = "Sample Subject"
-#    esender = "jmhughes018@gmail.com"
-#    erecipients = ["jmhughes018@gmail.com"]
-#    ehtml = "This is the body of the email"
-
     msg = Message(esubject, sender = esender, recipients = erecipients)
     msg.html = ehtml
 
     mail.send(msg)
 
 def sendconfirm(email, user_id):
-    esubject, esender, erecipients  = 'You are almost registered!', gmail_config.MAIL_USERNAME, list(email)
+    erecipients = [email]
+    esender = gmail_config.MAIL_USERNAME
+    esubject = 'You are almost registered!'
     ehtml = render_template('email-premailer.html',user_id=user_id)
     sendemail(esubject, esender, erecipients, ehtml)
 
