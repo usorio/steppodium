@@ -1,5 +1,5 @@
 from flask import render_template
-from project import app, mail, client
+from project import app, mail, client, bcrypt
 from flask_mail import Message
 from bson.objectid import ObjectId
 from datetime import datetime
@@ -34,9 +34,11 @@ def insert_user(email, *args):
     user_id = return_id(email)
     sendconfirm(email,user_id)
 
-def update_user(_id,dname,pwd,position,office):
+def update_user(_id,dname,password,position,office):
+    #encrypt password
+    password = bcrypt.generate_password_hash(password)
     user.update({"_id":ObjectId(_id)},{"$set":{"display_name":dname,
-                "password":pwd,"position":position,"office":office}})
+                "password":password,"position":position,"office":office}})
 
 def add_steps(_id,steps):
     date = datetime.now()

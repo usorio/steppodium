@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_mail import Mail
+from flask.ext.bcrypt import Bcrypt
 from gmail_config import MAIL_USERNAME, MAIL_PASSWORD, SECRET_KEY
 from pymongo import MongoClient
 
@@ -25,6 +26,9 @@ mail = Mail(app)
 
 #initiate MONGODB
 client = MongoClient()
+
+#initiate Bcrypt for passwords
+bcrypt = Bcrypt(app)
 
 #initialize views
 from project import views

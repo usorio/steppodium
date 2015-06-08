@@ -42,7 +42,7 @@ def register(user_id):
         dname, pwd  = form.display_name.data, form.password.data
         position, office = form.position.data, form.office.data
         podium.update_user(user_id, dname, pwd, position, office)
-        return render_template('success.html')
+        return render_template('success.html')#change to redirect success
     else: 
         flash_errors(form)
     return render_template('register.html',form=form)

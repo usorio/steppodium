@@ -21,7 +21,7 @@ def custom_email(company):
 
     def _custom_email(form,field):
         email = field.data.lower()
-        if email in ['jmhughes018@gmail.com', 'zac.demi@gmail.com', 'dan.k.lee.0@gmail.com']:
+        if email in ['jeffdemi@gmail.com','jmhughes018@gmail.com', 'zac.demi@gmail.com', 'dan.k.lee.0@gmail.com']:
             pass
         elif email[len(email)-4-len(company):-4] != company:
             raise ValidationError(message)
