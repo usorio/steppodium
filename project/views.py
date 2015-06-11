@@ -1,13 +1,8 @@
 from flask import request, redirect, render_template, url_for, flash
 from project import app,mail
 from flask_mail import Message
-from sforms import emailOnly, loginUser, registerUser
+from sforms import emailOnly, loginUser, registerUser, enterSteps
 import podium
-
-@app.route("/josh", methods = ['GET','POST'])
-def josh():
-    podium.sendconfirm()
-    return "good job"
 
 @app.route("/",methods = ['GET','POST'])
 def welcome():
@@ -29,7 +24,8 @@ def login():
     form = loginUser()
 
     if form.validate_on_submit():
-        return render_template('success.html')
+        user_id = podium.return_id(form.email.data)
+        return redirect(url_for('dashboard',user_id=user_id))
     else:
         flash_errors(form)
 
@@ -47,7 +43,18 @@ def register(user_id):
         flash_errors(form)
     return render_template('register.html',form=form)
 
+@app.route("/dashboard/<user_id>/", methods = ['GET', 'POST'])
+def dashboard(user_id):
+    form = enterSteps()
+    if form.validate_on_submit():
+        pass
+    else:
+        flash_errors(form)
+    return render_template('dashboard.html', form=form)
+
+
 def flash_errors(form):
     for field, errors in form.errors.items():
         for error in errors:
             flash(u"Error in the %s field - %s" % (getattr(form, field).label.text,error),'error')
+            
