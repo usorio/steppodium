@@ -42,7 +42,8 @@ def update_user(_id,dname,password,position,office):
 
 def add_steps(_id,steps):
     date = datetime.now()
-    entry = {steps,date}
+    date = datetime.strftime(date,"%Y%m%d%H%M%S")
+    entry = steps, date 
     user.update({"_id":ObjectId(_id)},{"$push":{"steps":entry}})
 
 def return_id(email):

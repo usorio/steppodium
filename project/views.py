@@ -47,7 +47,8 @@ def register(user_id):
 def dashboard(user_id):
     form = enterSteps()
     if form.validate_on_submit():
-        pass
+        steps = form.steps_walked.data
+        podium.add_steps(user_id, steps)
     else:
         flash_errors(form)
     return render_template('dashboard.html', form=form)
