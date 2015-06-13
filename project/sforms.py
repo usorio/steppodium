@@ -47,3 +47,5 @@ class registerUser(Form):
     position = SelectField('Job Title',choices=tuple_list(positions))
     office = SelectField('Office',choices=tuple_list(offices))
     
+class enterSteps(Form):
+    steps_walked = IntegerField('Enter your steps for today!', validators=[validators.NumberRange(min=0)])
