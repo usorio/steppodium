@@ -12,7 +12,7 @@
 }
 
 body {
-  background:url(https://static1.squarespace.com/static/54dac774e4b07abb47123591/t/55778799e4b0549e5e20ff36/1433896860113/?format=2500w&storage=local);
+  background: url("{{ url_for('static', filename='images/Long_Distance_Running.jpg') }}");
   background-position: 10%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -24,7 +24,7 @@ body {
   margin: 15% auto;
   min-width: 200px;
   max-width: 400px;
-  background-color:rgba(255,255,255,0.8);
+  background-color:rgba(229,229,229,0.8);
   height: 500px;
   padding:45px;
   text-align:center;
@@ -119,7 +119,7 @@ input {
   
   <body>
 	<div class='login'>
-	  <img src='https://static1.squarespace.com/static/54dac774e4b07abb47123591/t/55779696e4b00fe50a257726/1433900695092/?format=2500w&storage=local' class='scale_img'>
+          <img src="{{ url_for('static', filename='images/steppodium_finalogo_400px.png') }}" />
 	  
 	  <div class='register'>
         <form method="POST" action="/">
