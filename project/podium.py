@@ -3,17 +3,23 @@ from project import app, mail, client, bcrypt
 from flask_mail import Message
 from bson.objectid import ObjectId
 from datetime import datetime
+from decorators import async
 import gmail_config
 
 #define user database
 db = client.steppodium
 user = db.users
 
+
+@async
+def send_async_email(app, msg):
+    with app.app_context():
+        mail.send(msg)
+
 def sendemail(esubject, esender, erecipients, ehtml):
     msg = Message(esubject, sender = esender, recipients = erecipients)
     msg.html = ehtml
-
-    mail.send(msg)
+    send_async_email(app,msg)
 
 def sendconfirm(email, user_id):
     erecipients = [email]
