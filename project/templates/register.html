@@ -252,7 +252,8 @@ label.avatars > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
   <body>
 
 	<div class='profile'>
-	  <img src='https://static1.squarespace.com/static/54dac774e4b07abb47123591/t/55779696e4b00fe50a257726/1433900695092/?format=2500w&storage=local' class='scale_img'>
+          <img src="{{ url_for('static', filename='images/steppodium_finalogo_400px.png') }}" />
+	  
 	  
 	  <h1>create profile</h1>
 	  
@@ -288,38 +289,7 @@ label.avatars > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
   <div class="l">work position</div>
   <div class="r"> {{form.position}} </div>
 </div>
-  
-  <div class="a">
-  <div class="l">choose avatar</div>
-  <div class="r">
-	<label class="avatars">
-	  <input type="radio" name="avatar" value="av1" />
-      <img src="https://cloud.githubusercontent.com/assets/12660898/8145307/d013392e-11d0-11e5-832b-c6fb57b9a25f.jpg">
-	</label>
-	<label class="avatars">
-	  <input type="radio" name="avatar" value="av2" />
-      <img src="https://cloud.githubusercontent.com/assets/12660898/8145317/059b8f7e-11d1-11e5-8a5f-e2cada5c9675.jpg">
-	</label>
-	<label class="avatars">
-	  <input type="radio" name="avatar" value="av3" />
-      <img src="https://cloud.githubusercontent.com/assets/12660898/8145355/c5bda372-11d2-11e5-8f91-aa6a0341c4fe.jpg">
-	</label>
-	<label class="avatars">
-	  <input type="radio" name="avatar" value="av4" />
-      <img src="https://cloud.githubusercontent.com/assets/12660898/8145311/d0159c1e-11d0-11e5-9d96-6cf97e8e78fa.jpg">
-	</label>
-	<label class="avatars">
-	  <input type="radio" name="avatar" value="av5" />
-      <img src="https://cloud.githubusercontent.com/assets/12660898/8145309/d0152676-11d0-11e5-9dfe-257b638ba848.jpg">
-	</label>
-	<label class="avatars">
-	  <input type="radio" name="avatar" value="av6" />
-      <img src="https://cloud.githubusercontent.com/assets/12660898/8145310/d0154c28-11d0-11e5-9b90-b3cda6de197e.jpg">
-	</label>
-    </select>
-  </div>
-</div>
-  
+   
 		</fieldset>
 	  
 	  <input type="submit" class="complete" value="complete signup!" />

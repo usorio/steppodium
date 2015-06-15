@@ -3,7 +3,7 @@ from flask_wtf import Form
 from wtforms.fields.html5 import EmailField
 
 offices = ['Radnor','Johnstown','Cherry Hill','Pittsburgh','Philadelphia','Princeton']
-positions = ['Senior Consultant','Consultant','Analyst','Sales','Employee Advocate']
+positions = ['Consultant','Analyst','Sales','IT','Administration']
 
 #convert new_list into new_tuples
 def tuple_list(new_list):
@@ -39,7 +39,7 @@ class loginUser(emailOnly):
 
 #if user does not exist then redirect to register
 class registerUser(Form):
-    display_name = StringField('Display Name')
+    display_name = StringField('Display Name',validators=[validators.DataRequired()])
     password = PasswordField('Enter Password',validators=[
         validators.DataRequired(),
         validators.EqualTo('confirm', message = 'Passwords must match')])
