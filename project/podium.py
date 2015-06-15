@@ -40,11 +40,11 @@ def insert_user(email, *args):
     user_id = return_id(email)
     sendconfirm(email,user_id)
 
-def update_user(_id,dname,password,position,office,avatar):
+def update_user(_id,dname,password,position,office):
     #encrypt password
     password = bcrypt.generate_password_hash(password)
     user.update({"_id":ObjectId(_id)},{"$set":{"display_name":dname,
-        "password":password,"position":position,"office":office,"avatar":avatar}})
+        "password":password,"position":position,"office":office}})
 
 def add_steps(_id,steps):
     date = datetime.now()

@@ -10,7 +10,7 @@ def welcome():
     if form.validate_on_submit():
         email = form.email.data
         if podium.user_exists(email):
-            flash("You are already registered!")
+            flash("An email has already been sent to this address with registration information!")
         else:
             podium.insert_user(email)
             flash("Thanks for signing up! Check your email for a confirmation link!")
@@ -37,9 +37,9 @@ def register(user_id):
     if form.validate_on_submit():
         dname, pwd  = form.display_name.data, form.password.data
         position, office = form.position.data, form.office.data
-        avatar = request.form.avatar.data
-        podium.update_user(user_id, dname, pwd, position, office, avatar)
-        return render_template('success.html')#change to redirect success
+        #avatar = request.form.avatar.data
+        podium.update_user(user_id, dname, pwd, position, office)
+        return redirect(url_for('success'))
     else: 
         flash_errors(form)
     return render_template('register.html',form=form)
@@ -54,6 +54,10 @@ def dashboard(user_id):
         flash_errors(form)
     return render_template('dashboard.html', form=form)
 
+@app.route("/success/", methods = ['GET'])
+def success()
+    return render_template('success.html')
+           
 def flash_errors(form):
     for field, errors in form.errors.items():
         for error in errors:
