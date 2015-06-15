@@ -55,7 +55,7 @@ def dashboard(user_id):
     return render_template('dashboard.html', form=form)
 
 @app.route("/success/", methods = ['GET'])
-def success()
+def success():
     return render_template('success.html')
            
 def flash_errors(form):
