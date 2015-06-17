@@ -4,7 +4,13 @@ from flask_mail import Message
 from sforms import emailOnly, loginUser, registerUser, enterSteps
 import podium
 
+
 @app.route("/",methods = ['GET','POST'])
+def index():
+    #redirect to main page
+    return redirect(url_for('welcome'))
+
+@app.route("/welcome/",methods = ['GET','POST'])
 def welcome():
     form = emailOnly()
     if form.validate_on_submit():
@@ -24,8 +30,13 @@ def login():
     form = loginUser()
 
     if form.validate_on_submit():
-        user_id = podium.return_id(form.email.data)
-        return redirect(url_for('dashboard',user_id=user_id))
+        email = form.email.data.lower()
+        password = form.password.data
+        if not podium.user_exists(email) or not podium.valid_password(email,password):
+            flash("Password or email is incorrect")
+        else:
+            user_id = podium.return_id(email)
+            return redirect(url_for('dashboard',user_id=user_id))
     else:
         flash_errors(form)
 

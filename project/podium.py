@@ -35,6 +35,13 @@ def user_exists(email):
     else:
         return True
 
+def valid_password(email,password):
+    user_object = user.find_one({"email":email})
+    pw_hash = user_object["password"]
+    print pw_hash
+    print password
+    return bcrypt.check_password_hash(pw_hash, password)
+
 def insert_user(email, *args):
     user.insert({"email":email,"podium_client":"ajg"})
     user_id = return_id(email)
@@ -53,7 +60,7 @@ def add_steps(_id,steps):
     user.update({"_id":ObjectId(_id)},{"$push":{"steps":entry}})
 
 def return_id(email):
-    user_email = user.find_one({"email":email})
-    user_id = user_email["_id"]
+    user_object = user.find_one({"email":email})
+    user_id = user_object["_id"]
     return user_id
 

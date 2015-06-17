@@ -121,7 +121,7 @@ input {
           <img src="{{ url_for('static', filename='images/steppodium_finalogo_400px.png') }}" />
 	  
 	  <div class='register'>
-        <form method="POST" action="/">
+        <form method="POST" action="/welcome/">
             {{form.hidden_tag()}}
             {{form.email(placeholder="first_last@ajg.com")}}<br>
             <input type="submit" class='submit' value="register">
