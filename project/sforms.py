@@ -3,7 +3,7 @@ from flask_wtf import Form
 from wtforms.fields.html5 import EmailField
 
 offices = ['Radnor','Johnstown','Cherry Hill','Pittsburgh','Philadelphia','Princeton']
-positions = ['Consultant','Analyst','Sales','IT','Administration']
+positions = ['Compliance','Consultant','Analyst','Sales','IT','Administration']
 
 #convert new_list into new_tuples
 def tuple_list(new_list):
@@ -21,7 +21,7 @@ def custom_email(company):
 
     def _custom_email(form,field):
         email = field.data.lower()
-        if email in ['jeffdemi@gmail.com','jmhughes018@gmail.com', 'zac.demi@gmail.com', 'dan.k.lee.0@gmail.com']:
+        if email in ['lddemi@gmail.com','jmhughes018@gmail.com', 'zac.demi@gmail.com', 'dan.k.lee.0@gmail.com']:
             pass
         elif email[len(email)-4-len(company):-4] != company:
             raise ValidationError(message)

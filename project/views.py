@@ -8,7 +8,7 @@ import podium
 def welcome():
     form = emailOnly()
     if form.validate_on_submit():
-        email = form.email.data
+        email = form.email.data.lower()
         if podium.user_exists(email):
             flash("An email has already been sent to this address with registration information!")
         else:
