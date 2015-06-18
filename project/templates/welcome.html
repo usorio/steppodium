@@ -38,20 +38,23 @@ body {
   padding: 45px 15px 15px 15px; 
   
 }
-
 .register input#email {
-  font-size: 2em;
-  text-align: center;
-  background: none;
-  height: 45px;
-  width: 100%;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 3px solid #10A7ee;
-  margin-bottom: 20px;
+font-size: 2em;
+text-align: center;
+background: none;
+height: 45px;
+width: 400px;
+border: 3px solid #10A7ee;
+margin-bottom: 20px;
 }
 
+.register input#email:not([ie8min])  {
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	border-bottom: 3px solid #10A7ee;
+	width: 100%;
+				}
 .register input.submit {
   height:60px;
   cursor: hand;
