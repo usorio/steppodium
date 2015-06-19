@@ -5,6 +5,8 @@ from bson.objectid import ObjectId
 from datetime import datetime
 from decorators import async
 import gmail_config
+from bson import BSON
+from bson import json_util
 
 #define user database
 db = client.steppodium
@@ -56,11 +58,23 @@ def update_user(_id,dname,password,position,office):
 def add_steps(_id,steps):
     date = datetime.now()
     date = datetime.strftime(date,"%Y%m%d%H%M%S")
-    entry = steps, date 
-    user.update({"_id":ObjectId(_id)},{"$push":{"steps":entry}})
+    user.update({"_id":ObjectId(_id)},{"$push":{"entry":{"date":date, "steps":steps}}})
+
+def sum_steps(_id):
+    stepcount = 0
+    mongo_list = []
+    # query a list of entries from mongo
+    search = list(user.find({"_id":ObjectId(_id)},{"_id": False, "entry.steps": True}))
+    for each in search:
+        mongo_list.append(each)
+    # search outputs as a set embedded in a list, pop set for additional work.s
+    entryarray = mongo_list.pop()
+    steps_list = entryarray['entry']
+    for steps in steps_list:
+        stepcount  += steps['steps']
+    print stepcount
 
 def return_id(email):
     user_object = user.find_one({"email":email})
     user_id = user_object["_id"]
     return user_id
-
