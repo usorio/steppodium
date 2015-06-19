@@ -78,14 +78,10 @@ def sum_steps(_id):
     stepcount = 0
     mongo_list = []
     # query a list of entries from mongo
-    search = list(user.find({"_id":ObjectId(_id)},{"_id": False, "entry.steps": True}))
-    for each in search:
-        mongo_list.append(each)
-    # search outputs as a set embedded in a list, pop set for additional work.s
-    entryarray = mongo_list.pop()
-    steps_list = entryarray['entry']
-    for steps in steps_list:
-        stepcount  += steps['steps']
+    search_object  = user.find_one({"_id":ObjectId(_id)})
+    entry = search_object["entry"]
+    for each in entry:
+        stepcount  += each['steps']
     print stepcount
 
 def return_id(email):
