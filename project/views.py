@@ -16,10 +16,10 @@ def welcome():
     if form.validate_on_submit():
         email = form.email.data.lower()
         if podium.user_exists(email):
-            flash("An email has already been sent to this address with registration information!")
+            flash("An email has already been sent to this address with registration information! Make sure to check your JUNK mailbox.")
         else:
             podium.insert_user(email)
-            flash("Thanks for signing up! Check your email for a confirmation link!")
+            flash("Thanks for signing up! Check your email for a confirmation link! Email may be sent to JUNK mail.")
     else:
         flash_errors(form)
 
@@ -48,9 +48,11 @@ def register(user_id):
     if form.validate_on_submit():
         dname, pwd  = form.display_name.data, form.password.data
         position, office = form.position.data, form.office.data
-        #avatar = request.form.avatar.data
-        podium.update_user(user_id, dname, pwd, position, office)
-        return redirect(url_for('success'))
+        if podium.display_exists(dname):
+            flash("Error in Display Name Field - This display name already exist!")
+        else:
+            podium.update_user(user_id, dname, pwd, position, office)
+            return redirect(url_for('success'))
     else: 
         flash_errors(form)
     return render_template('register.html',form=form)

@@ -35,6 +35,13 @@ def user_exists(email):
     else:
         return True
 
+def display_exists(display):
+    in_database = user.find({"display_name":display}).count()
+    if in_database == 0:
+        return False
+    else:
+        return True
+
 def valid_password(email,password):
     user_object = user.find_one({"email":email})
     pw_hash = user_object["password"]

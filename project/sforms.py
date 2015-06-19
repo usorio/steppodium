@@ -2,8 +2,8 @@ from wtforms import validators, StringField,TextField, IntegerField, SelectField
 from flask_wtf import Form
 from wtforms.fields.html5 import EmailField
 
-offices = ['Radnor','Johnstown','Cherry Hill','Pittsburgh','Philadelphia','Princeton']
-positions = ['Compliance','Consultant','Analyst','Sales','IT','Administration']
+offices = ['Mount Laurel','Radnor','Johnstown','Cherry Hill','Pittsburgh','Philadelphia','Princeton']
+positions = ['Intern','Account Manager','Compliance','Consultant','Analyst','Sales','IT','Administration']
 
 #convert new_list into new_tuples
 def tuple_list(new_list):
