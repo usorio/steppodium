@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_mail import Mail
 from flask.ext.bcrypt import Bcrypt
-from gmail_config import MAIL_USERNAME, MAIL_PASSWORD, SECRET_KEY
+from gmail_config import MAIL_USERNAME, MAIL_PASSWORD, SECRET_KEY #SERVER_NAME
 from pymongo import MongoClient
 
 # set config mail server
@@ -14,7 +14,7 @@ MAIL_USERNAME = MAIL_USERNAME
 MAIL_PASSWORD = MAIL_PASSWORD
 MAIL_DEFAULT_SENDER = MAIL_USERNAME
 SECRET_KEY = SECRET_KEY
-SERVER_NAME = '127.0.0.1:5030'
+#SERVER_NAME = SERVER_NAME
 
 #initiate application
 app = Flask(__name__)

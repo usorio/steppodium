@@ -276,7 +276,7 @@ label.avatars > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
  
 <div class="a">
   <div class="l">display name</div>
-  <div class="r"> {{form.display_name}} <!--INPUT type="text" name="display_name" placeholder="e.g., rad_runner05"--></div>
+  <div class="r"> {{form.display_name(placeholder="e.g., rad_runner05")}} <!--INPUT type="text" name="display_name" placeholder="e.g., rad_runner05"--></div>
 </div>
  
 <div class="a">
@@ -291,7 +291,7 @@ label.avatars > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
    
 		</fieldset>
 	  
-	  <input type="submit" class="complete" value="complete signup!" />
+        <input type="submit" class="complete" value="complete signup!" />
 	  
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}

@@ -2,8 +2,8 @@ from wtforms import validators, StringField,TextField, IntegerField, SelectField
 from flask_wtf import Form
 from wtforms.fields.html5 import EmailField
 
-offices = ['Radnor','Johnstown','Cherry Hill','Pittsburgh','Philadelphia','Princeton']
-positions = ['Compliance','Consultant','Analyst','Sales','IT','Administration']
+offices = ['Mount Laurel','Radnor','Johnstown','Cherry Hill','Pittsburgh','Philadelphia','Princeton']
+positions = ['Intern','Account Manager','Compliance','Consultant','Analyst','Sales','IT','Administration']
 
 #convert new_list into new_tuples
 def tuple_list(new_list):
@@ -46,6 +46,12 @@ class registerUser(Form):
     confirm = PasswordField('Repeat Password')
     position = SelectField('Job Title',choices=tuple_list(positions))
     office = SelectField('Office',choices=tuple_list(offices))
+
+class passwordsOnly(Form):
+    password = PasswordField('Enter Password',validators=[
+        validators.DataRequired(),
+        validators.EqualTo('confirm', message = 'Passwords must match')])
+    confirm = PasswordField('Repeat Password')
     
 class enterSteps(Form):
     steps_walked = IntegerField('Enter your steps for today!', validators=[validators.NumberRange(min=0)])

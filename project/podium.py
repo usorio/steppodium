@@ -30,8 +30,22 @@ def sendconfirm(email, user_id):
     ehtml = render_template('email-premailer.html',user_id=user_id)
     sendemail(esubject, esender, erecipients, ehtml)
 
+def send_password_link(email,user_id):
+    erecipients = [email]
+    esender = gmail_config.MAIL_USERNAME
+    esubject = 'Password reset link.'
+    ehtml = render_template('password_link.html',user_id=user_id)
+    sendemail(esubject, esender, erecipients, ehtml)
+
 def user_exists(email):
     in_database = user.find({"email":email}).count()
+    if in_database == 0:
+        return False
+    else:
+        return True
+
+def display_exists(display):
+    in_database = user.find({"display_name":display}).count()
     if in_database == 0:
         return False
     else:
