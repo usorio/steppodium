@@ -1,7 +1,7 @@
 from flask import request, redirect, render_template, url_for, flash
 from project import app,mail
 from flask_mail import Message
-from sforms import emailOnly, loginUser, registerUser, enterSteps
+from sforms import emailOnly, loginUser, registerUser, enterSteps, passwordsOnly
 import podium
 
 
@@ -71,6 +71,25 @@ def dashboard(user_id):
 def success():
     return render_template('success.html')
            
+@app.route("/forgot_password/", methods = ['GET','POST'])
+def forgot_password():
+    form = emailOnly()
+    if form.validate_on_submit():
+        email = form.email.data.lower()
+        user_id = podium.return_id(email)
+        podium.send_password_link(email,user_id)
+        flash("If the email you entered exist in our sytem, then we have sent a password reset link.")
+        
+    return render_template('forgot_password.html', form=form)
+    
+@app.route("/reset_password/<user_id>/", methods = ['GET','POST'])
+def reset_password():
+    form = passwordsOnly()
+    if form.validate_on_submit():
+       #update passwords function
+       flash("Your password has been reset!.")
+    return render_template('reset_password.html', form=form)
+ 
 def flash_errors(form):
     for field, errors in form.errors.items():
         for error in errors:

@@ -46,6 +46,12 @@ class registerUser(Form):
     confirm = PasswordField('Repeat Password')
     position = SelectField('Job Title',choices=tuple_list(positions))
     office = SelectField('Office',choices=tuple_list(offices))
+
+class passwordsOnly(Form):
+    password = PasswordField('Enter Password',validators=[
+        validators.DataRequired(),
+        validators.EqualTo('confirm', message = 'Passwords must match')])
+    confirm = PasswordField('Repeat Password')
     
 class enterSteps(Form):
     steps_walked = IntegerField('Enter your steps for today!', validators=[validators.NumberRange(min=0)])
