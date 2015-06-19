@@ -63,9 +63,11 @@ def dashboard(user_id):
     if form.validate_on_submit():
         steps = form.steps_walked.data
         podium.add_steps(user_id, steps)
+        sum_steps = podium.sum_steps(user_id)
+        return render_template('dashboard.html', form=form, sum_steps=sum_steps)
     else:
         flash_errors(form)
-    return render_template('dashboard.html', form=form)
+    return render_template('dashboard.html', form=form, sum_steps="")
 
 @app.route("/success/", methods = ['GET'])
 def success():

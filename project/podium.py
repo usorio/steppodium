@@ -82,7 +82,7 @@ def sum_steps(_id):
     entry = search_object["entry"]
     for each in entry:
         stepcount  += each['steps']
-    print stepcount
+    return stepcount
 
 def return_id(email):
     user_object = user.find_one({"email":email})
