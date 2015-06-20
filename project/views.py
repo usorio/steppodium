@@ -80,16 +80,21 @@ def forgot_password():
         email = form.email.data.lower()
         user_id = podium.return_id(email)
         podium.send_password_link(email,user_id)
-        flash("If the email you entered exist in our sytem, then we have sent a password reset link.")
-        
+        flash("If your email exists in our sytem, then we have sent a password reset link.")
+    else:
+        flash_errors(form)
+ 
     return render_template('forgot_password.html', form=form)
     
 @app.route("/reset_password/<user_id>/", methods = ['GET','POST'])
-def reset_password():
+def reset_password(user_id):
     form = passwordsOnly()
     if form.validate_on_submit():
        #update passwords function
-       flash("Your password has been reset!.")
+       flash("Your password has been reset!")
+    else:
+       flash_errors(form)
+
     return render_template('reset_password.html', form=form)
  
 def flash_errors(form):
