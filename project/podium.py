@@ -10,7 +10,7 @@ from bson import json_util
 
 #define user database
 db = client.steppodium
-user = db.users
+users = db.users
 
 
 @async
@@ -37,54 +37,58 @@ def send_password_link(email,user_id):
     ehtml = render_template('password_link.html',user_id=user_id)
     sendemail(esubject, esender, erecipients, ehtml)
 
-def user_exists(email):
-    in_database = user.find({"email":email}).count()
-    if in_database == 0:
-        return False
-    else:
-        return True
+def email_exists(email):
+    in_database = users.find({"email":email}).count()
+    return in_database > 0
 
-def display_exists(display):
-    in_database = user.find({"display_name":display}).count()
-    if in_database == 0:
-        return False
-    else:
-        return True
+def email_registered(email):
+    in_database = db.users.find({"email":email, "password":{"$exists": True}}).count()
+    return in_database > 0
+
+def unique_display(_id,field,value):
+    user_display = users.find({"_id":{"$ne":ObjectId(_id)},field:value}).count()
+    return user_display == 0 
 
 def valid_password(email,password):
-    user_object = user.find_one({"email":email})
+    user_object = users.find_one({"email":email})
     pw_hash = user_object["password"]
-    print pw_hash
-    print password
     return bcrypt.check_password_hash(pw_hash, password)
 
 def insert_user(email, *args):
-    user.insert({"email":email,"podium_client":"ajg"})
+    users.insert({"email":email,"podium_client":"ajg"})
     user_id = return_id(email)
     sendconfirm(email,user_id)
 
 def update_user(_id,dname,password,position,office):
     #encrypt password
     password = bcrypt.generate_password_hash(password)
-    user.update({"_id":ObjectId(_id)},{"$set":{"display_name":dname,
+    users.update({"_id":ObjectId(_id)},{"$set":{"display_name":dname,
         "password":password,"position":position,"office":office}})
+
+def update_password(_id,password):
+    password = bcrypt.generate_password_hash(password)
+    users.update({"_id":ObjectId(_id)},{"$set":{"password":password}})
 
 def add_steps(_id,steps):
     date = datetime.now()
     date = datetime.strftime(date,"%Y%m%d%H%M%S")
-    user.update({"_id":ObjectId(_id)},{"$push":{"entry":{"date":date, "steps":steps}}})
+    users.update({"_id":ObjectId(_id)},{"$push":{"entry":{"date":date, "steps":steps}}})
 
 def sum_steps(_id):
     stepcount = 0
     mongo_list = []
     # query a list of entries from mongo
-    search_object  = user.find_one({"_id":ObjectId(_id)})
+    search_object  = users.find_one({"_id":ObjectId(_id)})
     entry = search_object["entry"]
     for each in entry:
         stepcount  += each['steps']
     return stepcount
 
 def return_id(email):
-    user_object = user.find_one({"email":email})
-    user_id = user_object["_id"]
-    return user_id
+    try:
+        user_object = users.find_one({"email":email})
+        user_id = user_object["_id"]
+        return user_id
+    except:
+        return False
+

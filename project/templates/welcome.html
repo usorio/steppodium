@@ -123,7 +123,7 @@ input {
 		
 		<!input type='submit' class='submit' value='register!'>
 	  </div>
-	  
+       <a href="{{url_for('forgot_password')}}">Forgot Password?</a>	  
 	  <div class='verify'>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}

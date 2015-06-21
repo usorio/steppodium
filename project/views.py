@@ -15,7 +15,7 @@ def welcome():
     form = emailOnly()
     if form.validate_on_submit():
         email = form.email.data.lower()
-        if podium.user_exists(email):
+        if podium.email_exists(email):
             flash("An email has already been sent to this address with registration information! Make sure to check your JUNK mailbox.")
         else:
             podium.insert_user(email)
@@ -25,14 +25,16 @@ def welcome():
 
     return render_template('welcome.html',form=form)
     
-@app.route("/login", methods = ['GET','POST'])
+@app.route("/login/", methods = ['GET','POST'])
 def login():
     form = loginUser()
 
     if form.validate_on_submit():
         email = form.email.data.lower()
         password = form.password.data
-        if not podium.user_exists(email) or not podium.valid_password(email,password):
+        if not podium.email_registered(email):
+            flash("This email address is not registered")
+        elif not podium.valid_password(email,password):
             flash("Password or email is incorrect")
         else:
             user_id = podium.return_id(email)
@@ -48,8 +50,8 @@ def register(user_id):
     if form.validate_on_submit():
         dname, pwd  = form.display_name.data, form.password.data
         position, office = form.position.data, form.office.data
-        if podium.display_exists(dname):
-            flash("Error in Display Name Field - This display name already exist!")
+        if not podium.unique_display(user_id,"display_name",dname):
+            flash("Error in Display Name Field - This display name has already been taken!")
         else:
             podium.update_user(user_id, dname, pwd, position, office)
             return redirect(url_for('success'))
@@ -90,7 +92,8 @@ def forgot_password():
 def reset_password(user_id):
     form = passwordsOnly()
     if form.validate_on_submit():
-       #update passwords function
+       password = form.password.data
+       podium.update_password(user_id,password)
        flash("Your password has been reset!")
     else:
        flash_errors(form)
