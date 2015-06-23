@@ -13,6 +13,13 @@ import random
 db = client.steppodium
 users = db.users
 
+def leaderboard(category):
+    pass
+
+
+
+
+
 def team_email_list(team_number):
     team_list = []
     team = users.find({"team.team_number":6})
@@ -73,6 +80,15 @@ def send_password_link(email,user_id):
     esubject = 'Password reset link.'
     ehtml = render_template('password_link.html',user_id=user_id)
     sendemail(esubject, esender, erecipients, ehtml)
+
+def send_team_email():
+    for i in range(8):
+        team_list = team_email_list(i)
+        erecipients = ["zac.demi@gmail.com"] #team_list
+        esender = gmail_config.MAIL_USERNAME
+        esubject = "Welcome to your team!"
+        ehtml = render_template('email-new_team.html',team_number=i,team_list=team_list)
+        sendemail(esubject, esender, erecipients, ehtml)
 
 def email_exists(email):
     in_database = users.find({"email":email}).count()

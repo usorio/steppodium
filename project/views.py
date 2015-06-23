@@ -62,15 +62,15 @@ def register(user_id):
 @app.route("/dashboard/<user_id>/", methods = ['GET', 'POST'])
 def dashboard(user_id):
     form = enterSteps()
+    sum_steps = podium.sum_steps(user_id)
     if form.validate_on_submit():
         steps = form.steps_walked.data
         podium.add_steps(user_id, steps)
-        sum_steps = podium.sum_steps(user_id)
         recent_steps = podium.get_recent_steps(user_id)
         return render_template('dashboard.html', form=form, sum_steps=sum_steps, recent_steps=recent_steps)
     else:
         flash_errors(form)
-    return render_template('dashboard.html', form=form, sum_steps="", recent_steps=[])
+    return render_template('dashboard.html', form=form, sum_steps=sum_steps, recent_steps=[])
 
 @app.route("/success/", methods = ['GET'])
 def success():
