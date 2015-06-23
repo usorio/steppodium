@@ -1,4 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}
+My Dashboard
+{% endblock %}
+
+{% block content %}
+ <div class='dash_entry'>
+          <img src="/static/images/steppodium_finalogo_400px.png" />
+
 <h1>Dashboard</h1>
+{{ display_name }}
+
 
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -8,22 +19,27 @@
         {% else %}
         {% endif %}
     {% endwith %}
-    
-    {{ sum_steps }}
 
     <form method="POST" action="">
         {{form.hidden_tag()}}
-        <p>Enter your steps for today!</p>
-        {{form.steps_walked}}<br>
+        <p>Enter your steps for today and press "+" to add them to your total.</p>
+        {{form.steps_walked(placeholder="step count here")}}
 
-        <input type="submit" value="Go">
+		<input type="submit" value="+" class="complete">
+
     </form>
     <br>
     <br>
+    <h2>Total Steps</h2>
+    <h2 class='sum'> {{ sum_steps }} </h2>
+
     {% if recent_steps == ""  %}
     {% else %}
         {% for each in recent_steps %}
-        <p>{{ each['date'][4:6] }}/{{ each['date'][6:8] }}/{{ each['date'][0:4] }} {{ each['steps'] }}</p>
+      <p>{{ each['date'][4:6] }}/{{ each['date'][6:8] }}/{{ each['date'][0:4] }} {{ each['steps'] }}</p> 
         {% endfor %}
     {% endif %}
+
+</div>
     
+{% endblock %}
