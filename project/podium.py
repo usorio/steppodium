@@ -127,11 +127,13 @@ def sum_steps(_id):
     stepcount = 0
     # query a list of entries from mongo
     search_object  = users.find_one({"_id":ObjectId(_id)})
-    entry = search_object["entry"]
-    for each in entry:
-        stepcount  += each['steps']
-    return stepcount
-
+    try:
+        entry = search_object["entry"]
+        for each in entry:
+            stepcount  += each['steps']
+        return stepcount
+    except:
+        return 0
 def get_recent_steps(_id):
     # query a list of entries from mongo
     search_object  = users.find_one({"_id":ObjectId(_id)})
@@ -147,4 +149,8 @@ def return_id(email):
         return user_id
     except:
         return False
+
+def return_user_object(user_id):
+    user = users.find_one({"_id":ObjectId(user_id)})
+    return user
 
