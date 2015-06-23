@@ -23,7 +23,7 @@
     {% if recent_steps == ""  %}
     {% else %}
         {% for each in recent_steps %}
-        <p>{{ each['steps'] }} {{ each['date']}}</p>
+        <p>{{ each['steps'] }} {{ each['date'][4:6] }}/{{ each['date'][6:8] }}/{{ each['date'][0:4] }}</p>
         {% endfor %}
     {% endif %}
     
