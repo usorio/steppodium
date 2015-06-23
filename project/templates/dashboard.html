@@ -1,4 +1,27 @@
-<h1>Dashboard</h1>
+{% extends "layout.html" %}
+{% block title %}
+My Dashboard
+{% endblock %}
+
+{% block content %}
+ <div class='dash_entry'>
+          <img src="/static/images/steppodium_finalogo_400px.png" />
+
+<h1>{{ display_name }}'s Dashboard</h1>
+{{ display_name }}
+
+    <form method="POST" action="">
+        {{form.hidden_tag()}}
+        <p>Enter your steps for today and press "+" to add them to your total.</p>
+        {{form.steps_walked(placeholder="step count here")}}
+
+		<input type="submit" value="+" class="complete">
+
+    </form>
+    <br />
+    <h2>Your Total Steps: <span class='sum'> {{ sum_steps }}</span> </h2>
+
+
 
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -8,22 +31,23 @@
         {% else %}
         {% endif %}
     {% endwith %}
-    
-    {{ sum_steps }}
 
-    <form method="POST" action="">
-        {{form.hidden_tag()}}
-        <p>Enter your steps for today!</p>
-        {{form.steps_walked}}<br>
-
-        <input type="submit" value="Go">
-    </form>
-    <br>
-    <br>
+<!--
     {% if recent_steps == ""  %}
     {% else %}
         {% for each in recent_steps %}
-        <p>{{ each['date'][4:6] }}/{{ each['date'][6:8] }}/{{ each['date'][0:4] }} {{ each['steps'] }}</p>
+      <p>{{ each['date'][4:6] }}/{{ each['date'][6:8] }}/{{ each['date'][0:4] }}: {{ each['steps'] }}</p> 
         {% endfor %}
     {% endif %}
+-->
+
+</div>
+
+<div class='dash_entry sub'>
+ <h1>Leaderboards </h1>
+
+Check back soon, leaderboards are on their way!
+</div>
+
     
+{% endblock %}
