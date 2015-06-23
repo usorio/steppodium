@@ -7,11 +7,48 @@ from decorators import async
 import gmail_config
 from bson import BSON
 from bson import json_util
+import random
 
 #define user database
 db = client.steppodium
 users = db.users
 
+def team_email_list(team_number):
+    team_list = []
+    team = users.find({"team.team_number":6})
+    for each in team:
+        email = each["email"]
+        team_list.append(email)
+     
+    print team_list
+    return team_list
+
+def make_teams():
+    team_max = 5
+    team_number = 1
+    player_number = 1
+
+    #find count of all players without team
+    count = db.users.find({"password":{"$exists": True},"team":{"$exists": False}}).count()
+
+    for each in range(count):
+        random_user = db.users.find({"password":{"$exists": True},"team":{"$exists": False}})[random.randrange(count)]
+        _id = random_user["_id"]
+        #add random_user to team     
+        users.update({"_id":ObjectId(_id)},{"$set":{"team.team_number":team_number,
+                     "team.player_number":player_number}})
+        print "team number:" + str(team_number)
+        print "team player:" + str(player_number)
+
+        #reset count of unassigned teams
+        count = db.users.find({"password":{"$exists": True},"team":{"$exists": False}}).count()
+
+        #increment team and player numbers
+        if player_number == team_max:
+            player_number = 1
+            team_number += 1
+        else:
+            player_number += 1
 
 @async
 def send_async_email(app, msg):
