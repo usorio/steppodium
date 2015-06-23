@@ -1,9 +1,10 @@
-from wtforms import validators, StringField,TextField, IntegerField, SelectField, ValidationError, SubmitField, PasswordField
+from wtforms import validators, StringField,TextField, IntegerField, SelectField, ValidationError, SubmitField, PasswordField, SelectMultipleField
 from flask_wtf import Form
 from wtforms.fields.html5 import EmailField
 
 offices = ['Mount Laurel','Radnor','Johnstown','Cherry Hill','Pittsburgh','Philadelphia','Princeton']
 positions = ['Intern','Account Manager','Compliance','Consultant','Analyst','Sales','IT','Administration']
+
 
 #convert new_list into new_tuples
 def tuple_list(new_list):
@@ -52,6 +53,17 @@ class passwordsOnly(Form):
         validators.DataRequired(),
         validators.EqualTo('confirm', message = 'Passwords must match')])
     confirm = PasswordField('Repeat Password')
-    
+
+# class MultiCheckboxField(SelectMultipleField):
+#    """
+#    A multiple-select, except displays a list of checkboxes.
+#
+#    Iterating the field will produce subfields, allowing custom rendering of
+#    the enclosed checkbox fields.
+#    """
+#    widget = widgets.ListWidget(prefix_label=False)
+#    option_widget = widgets.CheckboxInput()
+
 class enterSteps(Form):
     steps_walked = IntegerField('Steps Entry', validators=[validators.NumberRange(min=0, max=50000)])
+    # taglist = MultiCheckboxField('Tags',choices=tagtuple,validators=[validators.Required()])
