@@ -324,12 +324,17 @@ label.avatars > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
   background-color:rgba(226,226,226,0.8);
   padding:45px;
   text-align:left;
+
+  border-radius: 50px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  border: 0px solid #000000;
 }
 
 .dash_entry input#steps_walked {
   height:60px;
   text-align: center;
-  margin: 20px 0px 20px 0px;
+  margin: 10px 0px 20px 0px;
   display:block;
   float:left;
   font-size: 2em;
@@ -347,6 +352,7 @@ label.avatars > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
 .dash_entry input.complete {
   width:65px;
   font-size: 2em;
+  margin: 10px 0px 20px 0px;  
   margin-left: 15px;
   min-width: 65px;
   float: left;
