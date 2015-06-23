@@ -341,13 +341,18 @@ label.avatars > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
   font-weight: 600;
   cursor: hand;
   min-width: 105px;
-  color: rgba(216,216,216,1.0);
+  color: #343434;
   background: #fff;
   border-radius: 50px;
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
   border: 3px solid rgba(216,216,216,1.0); 
 }
+
+.dash_entry input:active {
+  color: #555555;
+}
+
 
 .dash_entry input.complete {
   width:65px;
@@ -358,8 +363,25 @@ label.avatars > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
   float: left;
 }
 
+.sub {
+background: #ffd648;
+}
+
+.sub h1 {
+margin-top: 0px;
+}
+
 .sum_steps {
   text-size: 1.5em;
 }
 
 form { display: block; }
+
+.error  {
+  color: #0000FF;
+  font-weight: 600;
+}
+
+h2 span.sum {
+  color: #10A7ee;
+}
