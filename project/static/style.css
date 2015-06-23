@@ -170,7 +170,7 @@ input {
   outline: 0;
 }
 
-/* Left DIV */
+/* Left DIV: Form Labels  */
 .l {
   width: 37%;
   margin-top: 8px;
@@ -179,6 +179,7 @@ input {
   text-align: right;
   font-size: 1.5em;
   height: 36px;
+  text-transform: lowercase;
 }
  
 /* Right DIV */
