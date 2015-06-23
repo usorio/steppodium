@@ -85,7 +85,7 @@ def sum_steps(_id):
 
 def get_recent_steps(_id):
     # query a list of entries from mongo
-    search_object  = user.find_one({"_id":ObjectId(_id)})
+    search_object  = users.find_one({"_id":ObjectId(_id)})
     entry = search_object["entry"]
     entry.reverse()
     entry = entry[0:10]
