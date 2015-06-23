@@ -3,12 +3,15 @@ from project import app,mail
 from flask_mail import Message
 from sforms import emailOnly, loginUser, registerUser, enterSteps, passwordsOnly
 import podium
-
+from bson.objectid import ObjectId
 
 @app.route("/",methods = ['GET','POST'])
 def index():
     #redirect to main page
-    return redirect(url_for('welcome'))
+    #return redirect(url_for('welcome'))
+    podium.send_team_email()
+    return "email has been sent"
+    #return render_template('email-new_team.html',team_number=1,team_list=["1","2"])
 
 @app.route("/welcome/",methods = ['GET','POST'])
 def welcome():
@@ -63,14 +66,15 @@ def register(user_id):
 def dashboard(user_id):
     form = enterSteps()
     sum_steps = podium.sum_steps(user_id)
+    user = users.find({"_id":ObjectId(user_id)})
     if form.validate_on_submit():
         steps = form.steps_walked.data
         podium.add_steps(user_id, steps)
         recent_steps = podium.get_recent_steps(user_id)
-        return render_template('dashboard.html', form=form, sum_steps=sum_steps, recent_steps=recent_steps)
+        return render_template('dashboard.html', form=form, sum_steps=sum_steps, recent_steps=recent_steps,user=user)
     else:
         flash_errors(form)
-    return render_template('dashboard.html', form=form, sum_steps=sum_steps, recent_steps=[])
+    return render_template('dashboard.html', form=form, sum_steps=sum_steps, recent_steps=[],user=user)
 
 @app.route("/success/", methods = ['GET'])
 def success():

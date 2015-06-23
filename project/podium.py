@@ -16,13 +16,9 @@ users = db.users
 def leaderboard(category):
     pass
 
-
-
-
-
 def team_email_list(team_number):
     team_list = []
-    team = users.find({"team.team_number":6})
+    team = users.find({"team.team_number":team_number})
     for each in team:
         email = each["email"]
         team_list.append(email)
@@ -82,9 +78,9 @@ def send_password_link(email,user_id):
     sendemail(esubject, esender, erecipients, ehtml)
 
 def send_team_email():
-    for i in range(8):
+    for i in range(1,8):
         team_list = team_email_list(i)
-        erecipients = ["zac.demi@gmail.com"] #team_list
+        erecipients = ["zac.demi@gmail.com","dan.k.lee.0@gmail.com"] #team_list
         esender = gmail_config.MAIL_USERNAME
         esubject = "Welcome to your team!"
         ehtml = render_template('email-new_team.html',team_number=i,team_list=team_list)
