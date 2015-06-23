@@ -13,8 +13,17 @@
 
     <form method="POST" action="">
         {{form.hidden_tag()}}
-        {{form.steps_walked.label}}
+        <p>Enter your steps for today!</p>
         {{form.steps_walked}}<br>
 
         <input type="submit" value="Go">
     </form>
+    <br>
+    <br>
+    {% if recent_steps == ""  %}
+    {% else %}
+        {% for each in recent_steps %}
+        <p>{{ each['steps'] }} {{ each['date']}}</p>
+        {% endfor %}
+    {% endif %}
+    

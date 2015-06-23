@@ -66,10 +66,11 @@ def dashboard(user_id):
         steps = form.steps_walked.data
         podium.add_steps(user_id, steps)
         sum_steps = podium.sum_steps(user_id)
-        return render_template('dashboard.html', form=form, sum_steps=sum_steps)
+        recent_steps = podium.get_recent_steps(user_id)
+        return render_template('dashboard.html', form=form, sum_steps=sum_steps, recent_steps=recent_steps)
     else:
         flash_errors(form)
-    return render_template('dashboard.html', form=form, sum_steps="")
+    return render_template('dashboard.html', form=form, sum_steps="", recent_steps=[])
 
 @app.route("/success/", methods = ['GET'])
 def success():

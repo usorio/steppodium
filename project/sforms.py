@@ -54,4 +54,4 @@ class passwordsOnly(Form):
     confirm = PasswordField('Repeat Password')
     
 class enterSteps(Form):
-    steps_walked = IntegerField('Enter your steps for today!', validators=[validators.NumberRange(min=0)])
+    steps_walked = IntegerField('Steps Entry', validators=[validators.NumberRange(min=0, max=50000)])
