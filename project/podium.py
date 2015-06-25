@@ -8,13 +8,31 @@ import gmail_config
 from bson import BSON
 from bson import json_util
 import random
+import pprint
 
 #define user database
 db = client.steppodium
-users = db.users
+users = db.users2
 
-def leaderboard(category):
-    pass
+def mongo_sum_leaderboard():
+    pipeline = [ 
+        {"$unwind" : "$entry" },
+        {"$group": {"_id": "$display_name", "totalsteps":{"$sum":"$entry.steps"}}},
+        {"$sort": {"totalsteps":-1}},
+        {"$limit":10}
+    ]
+    pprint.pprint(db.command('aggregate', 'users2', pipeline=pipeline))
+
+def sum_leaderboard(category):
+    leaderboard = []
+    mongo_object = users.find({"entry":{"$exists": True}})
+    for each in mongo_object:
+        _id = each["_id"]
+        step_total = sum_steps(_id)
+        display = each[category]
+        leaderboard.append((step_total,display))
+    
+    print sorted(leaderboard, reverse = True)[0:10]        
 
 def team_email_list(team_number):
     team_list = []
@@ -32,10 +50,10 @@ def make_teams():
     player_number = 1
 
     #find count of all players without team
-    count = db.users.find({"password":{"$exists": True},"team":{"$exists": False}}).count()
+    count = users.find({"password":{"$exists": True},"team":{"$exists": False}}).count()
 
     for each in range(count):
-        random_user = db.users.find({"password":{"$exists": True},"team":{"$exists": False}})[random.randrange(count)]
+        random_user = users.find({"password":{"$exists": True},"team":{"$exists": False}})[random.randrange(count)]
         _id = random_user["_id"]
         #add random_user to team     
         users.update({"_id":ObjectId(_id)},{"$set":{"team.team_number":team_number,
@@ -134,6 +152,7 @@ def sum_steps(_id):
         return stepcount
     except:
         return 0
+
 def get_recent_steps(_id):
     # query a list of entries from mongo
     search_object  = users.find_one({"_id":ObjectId(_id)})
