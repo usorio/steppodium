@@ -45,7 +45,11 @@ My Dashboard
 <div class='dash_entry sub'>
  <h1>Leaderboards </h1>
 
-Check back soon, leaderboards are on their way!
+Check back soon, leaderboards are on their way!<br>
+
+        {% for each in individual %}
+      <p> {{ each['_id']}} {{ each['totalsteps'] }}</p> 
+        {% endfor %}
 </div>
 
     

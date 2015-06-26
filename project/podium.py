@@ -14,25 +14,17 @@ import pprint
 db = client.steppodium
 users = db.users2
 
-def mongo_sum_leaderboard():
+def mongo_sum_leaderboard(group):
     pipeline = [ 
         {"$unwind" : "$entry" },
-        {"$group": {"_id": "$display_name", "totalsteps":{"$sum":"$entry.steps"}}},
+        {"$group": {"_id": group,
+            "totalsteps":{"$sum":"$entry.steps"},
+            "count":{"$sum":1}}},
         {"$sort": {"totalsteps":-1}},
         {"$limit":10}
     ]
-    pprint.pprint(db.command('aggregate', 'users2', pipeline=pipeline))
-
-def sum_leaderboard(category):
-    leaderboard = []
-    mongo_object = users.find({"entry":{"$exists": True}})
-    for each in mongo_object:
-        _id = each["_id"]
-        step_total = sum_steps(_id)
-        display = each[category]
-        leaderboard.append((step_total,display))
     
-    print sorted(leaderboard, reverse = True)[0:10]        
+    return db.users2.aggregate(pipeline)['result']
 
 def team_email_list(team_number):
     team_list = []
