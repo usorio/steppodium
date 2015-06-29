@@ -385,3 +385,28 @@ form { display: block; }
 h2 span.sum {
   color: #10A7ee;
 }
+
+/* Leaderboard Styles */
+
+.b { 
+  display: block;
+  width: 200px;
+  clear: both;
+  margin: auto;
+  padding: 10px;
+}
+
+.b_l {
+ display: block;
+ width: 110px;
+ float: left;
+ text-align: left;
+ font-weight: 600;
+}
+
+.b_r {
+  width: 90px;
+  float: right; 
+  text-align: left;
+}
+
