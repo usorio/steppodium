@@ -45,11 +45,32 @@ My Dashboard
 <div class='dash_entry sub'>
  <h1>Leaderboards </h1>
 
-Check back soon, leaderboards are on their way!<br>
-
+<span class=''>Check back soon, leaderboards are on their way!</span>
+ 
+<br /> <h2>Individual Leaders</h2> 
         {% for each in individual %}
-      <p> {{ each['_id']}} {{ each['totalsteps'] }}</p> 
+      <div class="b">
+        <div class="b_l"> {{ each['_id']}} </div>
+        <div class="b_r"> {{ each['totalsteps'] }}
+      </div> 
         {% endfor %}
+
+<br /> <h2>Highest Team Averages</h2>
+        {% for each in individual  %} <!-- REPLACE WITH TEAM AVG CODE -->
+      <div class="b">
+        <div class="b_l"> {{ each['_id']}} </div>
+        <div class="b_r"> {{ each['totalsteps'] }}
+      </div>
+        {% endfor %}
+
+<br /> <h2>Highest Position Averages</h2>
+	 {% for each in individual  %} <!--REPLACE WITH POSITION AVG CODE -->
+      <div class="b">
+        <div class="b_l"> {{ each['_id']}} </div>
+        <div class="b_r"> {{ each['totalsteps'] }}
+      </div>
+        {% endfor %}
+
 </div>
 
     
