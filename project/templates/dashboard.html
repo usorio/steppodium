@@ -31,15 +31,14 @@ My Dashboard
         {% endif %}
     {% endwith %}
 
-<!--
-    {% if recent_steps == ""  %}
-    {% else %}
-        {% for each in recent_steps %}
-      <p>{{ each['date'][4:6] }}/{{ each['date'][6:8] }}/{{ each['date'][0:4] }}: {{ each['steps'] }}</p> 
-        {% endfor %}
-    {% endif %}
--->
+    <br>
 
+    <form method="POST" action="">
+        {{form2.hidden_tag()}}
+        {{form2.edit_steps}}
+        <input type="submit" value="edit steps" class="complete">
+    </form>
+ 
 </div>
 
 <div class='dash_entry sub'>

@@ -1,7 +1,7 @@
 from flask import request, redirect, render_template, url_for, flash
 from project import app,mail
 from flask_mail import Message
-from sforms import emailOnly, loginUser, registerUser, enterSteps, passwordsOnly
+from sforms import emailOnly, loginUser, registerUser, enterSteps, passwordsOnlyi, editSteps
 import podium
 from bson.objectid import ObjectId
 
@@ -62,19 +62,24 @@ def register(user_id):
 @app.route("/dashboard/<user_id>/", methods = ['GET', 'POST'])
 def dashboard(user_id):
     form = enterSteps()
+    form2 = editSteps()
+
     sum_steps = podium.sum_steps(user_id)
     user = podium.return_user_object(user_id)
     individual = podium.leaderboard("$team.team_number","$avg")
     if form.validate_on_submit():
         steps = form.steps_walked.data
         podium.add_steps(user_id, steps)
-        recent_steps = podium.get_recent_steps(user_id)
         sum_steps = podium.sum_steps(user_id)
         #leaderboards
         individual = podium.leaderboard("$team.team_number","$avg")
+    elif form2.validate_on_submit():
+        #edit steps
+        date_list = form.date_list.data
+        podium.remove_steps(user_id,date_list)
     else:
         flash_errors(form)
-    return render_template('dashboard.html', form=form, sum_steps=sum_steps, recent_steps=[],user=user,individual=individual)
+    return render_template('dashboard.html', form=form, form2=form2, sum_steps=sum_steps, recent_steps=[],user=user,individual=individual)
 
 @app.route("/success/", methods = ['GET'])
 def success():

@@ -12,8 +12,11 @@ import pprint
 
 #define user database
 db = client.steppodium
-users = db.users2
+users = db.users3
 
+def remove_steps(_id,date_list):
+    for each in date_list:
+        users.update({"_id":ObjectId(_id)},{"$unset":{"entry.date":each}})
 
 def leaderboard(group,accumulator):
     pipeline = [ 
@@ -25,10 +28,10 @@ def leaderboard(group,accumulator):
         {"$limit":10}
     ]
 
-    print db.users2.aggregate(pipeline)['result']
+    print users.aggregate(pipeline)['result']
     #pprint(db.command(users,pipeline))
     try:
-        return db.users2.aggregate(pipeline)['result']
+        return users.aggregate(pipeline)['result']
     except:
         return 0
 
