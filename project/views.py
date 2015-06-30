@@ -64,14 +64,14 @@ def dashboard(user_id):
     form = enterSteps()
     sum_steps = podium.sum_steps(user_id)
     user = podium.return_user_object(user_id)
-    individual = podium.mongo_sum_leaderboard("$display_name")
+    individual = podium.leaderboard("$team.team_number","$avg")
     if form.validate_on_submit():
         steps = form.steps_walked.data
         podium.add_steps(user_id, steps)
         recent_steps = podium.get_recent_steps(user_id)
         sum_steps = podium.sum_steps(user_id)
         #leaderboards
-        individual = podium.mongo_sum_leaderboard("$display_name")
+        individual = podium.leaderboard("$team.team_number","$avg")
     else:
         flash_errors(form)
     return render_template('dashboard.html', form=form, sum_steps=sum_steps, recent_steps=[],user=user,individual=individual)
