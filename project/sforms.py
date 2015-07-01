@@ -1,4 +1,4 @@
-from wtforms import validators, StringField,TextField, IntegerField, SelectField, ValidationError, SubmitField, PasswordField, SelectMultipleField
+from wtforms import validators, StringField,TextField, IntegerField, SelectField, ValidationError, SubmitField, PasswordField, SelectMultipleField, widgets
 from flask_wtf import Form
 from wtforms.fields.html5 import EmailField
 
@@ -54,16 +54,18 @@ class passwordsOnly(Form):
         validators.EqualTo('confirm', message = 'Passwords must match')])
     confirm = PasswordField('Repeat Password')
 
-# class MultiCheckboxField(SelectMultipleField):
-#    """
-#    A multiple-select, except displays a list of checkboxes.
-#
-#    Iterating the field will produce subfields, allowing custom rendering of
-#    the enclosed checkbox fields.
-#    """
-#    widget = widgets.ListWidget(prefix_label=False)
-#    option_widget = widgets.CheckboxInput()
+class MultiCheckboxField(SelectMultipleField):
+    """
+    A multiple-select, except displays a list of checkboxes.
+
+    Iterating the field will produce subfields, allowing custom rendering of
+    the enclosed checkbox fields.
+    """
+    widget = widgets.ListWidget(prefix_label=False)
+    option_widget = widgets.CheckboxInput()
 
 class enterSteps(Form):
     steps_walked = IntegerField('Steps Entry', validators=[validators.NumberRange(min=0, max=50000)])
-    # taglist = MultiCheckboxField('Tags',choices=tagtuple,validators=[validators.Required()])
+
+class editSteps(Form):
+    edit_steps = MultiCheckboxField('edit_steps',choices=[(1,2)],validators=[validators.Required()])

@@ -1,7 +1,7 @@
 from flask import request, redirect, render_template, url_for, flash
 from project import app,mail
 from flask_mail import Message
-from sforms import emailOnly, loginUser, registerUser, enterSteps, passwordsOnlyi, editSteps
+from sforms import emailOnly, loginUser, registerUser, enterSteps, passwordsOnly, editSteps
 import podium
 from bson.objectid import ObjectId
 
@@ -62,6 +62,7 @@ def register(user_id):
 @app.route("/dashboard/<user_id>/", methods = ['GET', 'POST'])
 def dashboard(user_id):
     form = enterSteps()
+    #tagtuple=podium.st2(podium.get_recent_steps(user_id))
     form2 = editSteps()
 
     sum_steps = podium.sum_steps(user_id)
