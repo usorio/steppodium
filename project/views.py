@@ -62,8 +62,8 @@ def register(user_id):
 @app.route("/dashboard/<user_id>/", methods = ['GET', 'POST'])
 def dashboard(user_id):
     form = enterSteps()
-    #tagtuple=podium.st2(podium.get_recent_steps(user_id))
-    form2 = editSteps()
+    tagtuple = podium.st2(podium.get_recent_steps(user_id))
+    form2 = editSteps(tagtuple)
 
     sum_steps = podium.sum_steps(user_id)
     user = podium.return_user_object(user_id)
