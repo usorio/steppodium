@@ -63,7 +63,8 @@ def register(user_id):
 def dashboard(user_id):
     form = enterSteps()
     tagtuple = podium.st2(podium.get_recent_steps(user_id))
-    form2 = editSteps(tagtuple)
+    form2 = editSteps()
+    form2.edit_steps.choices = tagtuple
 
     sum_steps = podium.sum_steps(user_id)
     user = podium.return_user_object(user_id)
@@ -76,7 +77,7 @@ def dashboard(user_id):
         individual = podium.leaderboard("$team.team_number","$avg")
     elif form2.validate_on_submit():
         #edit steps
-        date_list = form.date_list.data
+        date_list = form2.date_list.data
         podium.remove_steps(user_id,date_list)
     else:
         flash_errors(form)

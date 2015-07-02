@@ -28,7 +28,7 @@ def leaderboard(group,accumulator):
         {"$limit":10}
     ]
 
-    print users.aggregate(pipeline)['result']
+    #print users.aggregate(pipeline)['result']
     #pprint(db.command(users,pipeline))
     try:
         return users.aggregate(pipeline)['result']

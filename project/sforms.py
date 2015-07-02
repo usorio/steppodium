@@ -68,6 +68,7 @@ class enterSteps(Form):
     steps_walked = IntegerField('Steps Entry', validators=[validators.NumberRange(min=0, max=50000)])
 
 class editSteps(Form):
-    def __init__(self,tagtuple):
-        self.tagtuple = tagtuple
-        self.edit_steps = MultiCheckboxField('edit_steps',choices=self.tagtuple,validators=[validators.Required()])
+    edit_steps = MultiCheckboxField('edit_steps', validators=[validators.Required()])
+    #def __init__(self,tagtuple):
+    #    self.tagtuple = tagtuple
+    #    self.edit_steps = MultiCheckboxField('edit_steps',choices=self.tagtuple,validators=[validators.Required()])
