@@ -15,7 +15,8 @@ db = client.steppodium
 users = db.users3
 
 def remove_steps(_id,date_list):
-    for each in date_list:
+    delete_dates = [x[0] for x in date_list]
+    for each in delete_dates:
         users.update({"_id":ObjectId(_id)},{"$unset":{"entry.date":each}})
 
 def leaderboard(group,accumulator):
@@ -178,6 +179,6 @@ def st2(new_list):
     new_tuple = []
     for x in new_list:
         insert = (x['date'],x['date'][4:6] + '/' +  x['date'][6:8] + '/' +  x['date'][2:4] + "  -   " + str( x['steps']))
-    new_tuple.append(insert)
+        new_tuple.append(insert)
     new_tuple = sorted(new_tuple)
     return new_tuple

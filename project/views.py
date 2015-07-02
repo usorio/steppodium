@@ -77,7 +77,7 @@ def dashboard(user_id):
         individual = podium.leaderboard("$team.team_number","$avg")
     elif form2.validate_on_submit():
         #edit steps
-        date_list = form2.date_list.data
+        date_list = form2.edit_steps.data
         podium.remove_steps(user_id,date_list)
     else:
         flash_errors(form)
