@@ -83,6 +83,23 @@ def dashboard(user_id):
         flash_errors(form)
     return render_template('dashboard.html', form=form, form2=form2, sum_steps=sum_steps, recent_steps=[],user=user,individual=individual)
 
+@app.route("/edit/<user_id>/", methods = ['GET', 'POST'])
+def edit(user_id):
+    tagtuple = podium.st2(podium.get_recent_steps(user_id))
+    form2 = editSteps()
+    form2.edit_steps.choices = tagtuple
+
+    if form2.validate_on_submit():
+        date_tuple = form2.edit_steps.data
+        date_list = [i[0:14] for i in date_tuple]
+        podium.remove_steps(user_id,date_list)
+        tagtuple = podium.st2(podium.get_recent_steps(user_id))
+        form2.edit_steps.choices = tagtuple
+    else:
+        flash_errors(form2)
+
+    return render_template('edit.html', form2=form2)
+
 @app.route("/success/", methods = ['GET'])
 def success():
     return render_template('success.html')

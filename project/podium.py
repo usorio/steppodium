@@ -15,9 +15,11 @@ db = client.steppodium
 users = db.users3
 
 def remove_steps(_id,date_list):
-    delete_dates = [x[0] for x in date_list]
-    for each in delete_dates:
-        users.update({"_id":ObjectId(_id)},{"$unset":{"entry.date":each}})
+    # sets array elements within date_list to null
+    for each in date_list:
+        users.update({"_id":ObjectId(_id),"entry.date":each},{"$unset":{"entry.$":""}})
+    # removes null values from array
+    users.update({"_id":ObjectId(_id)},{"$pull":{"entry":None}})
 
 def leaderboard(group,accumulator):
     pipeline = [ 
