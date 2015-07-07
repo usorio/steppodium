@@ -63,9 +63,6 @@ def register(user_id):
 def dashboard(user_id):
     form = enterSteps()
     tagtuple = podium.st2(podium.get_recent_steps(user_id))
-    form2 = editSteps()
-    form2.edit_steps.choices = tagtuple
-
     sum_steps = podium.sum_steps(user_id)
     user = podium.return_user_object(user_id)
     #leaderboards
@@ -81,15 +78,11 @@ def dashboard(user_id):
         individual = podium.sum_leaderboard("$display_name")
         team_avg = podium.avg_leaderboard("$team.team_number")
         position_avg = podium.avg_leaderboard("$position")
-    elif form2.validate_on_submit():
-        #edit steps
-        date_tuple = form2.edit_steps.data
-        date_list = [i[0:14] for i in date_tuple]
-        podium.remove_steps(user_id,date_list)
     else:
         flash_errors(form)
-    return render_template('dashboard.html', form=form, form2=form2,
-                          sum_steps=sum_steps, recent_steps=[],user=user,
+
+    return render_template('dashboard.html', form=form,
+                          sum_steps=sum_steps, recent_steps=[],user=user,user_id=user_id,
                           individual=individual,team_avg=team_avg,position_avg=position_avg)
 
 @app.route("/edit/<user_id>/", methods = ['GET', 'POST'])
@@ -107,7 +100,7 @@ def edit(user_id):
     else:
         flash_errors(form2)
 
-    return render_template('edit.html', form2=form2)
+    return render_template('edit_steps.html', form2=form2, user_id=user_id)
 
 @app.route("/success/", methods = ['GET'])
 def success():

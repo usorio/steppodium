@@ -30,7 +30,6 @@ def sum_leaderboard(group):
         {"$sort": {"totalsteps":-1}},
         {"$limit":10}
     ]
-    
     return users.aggregate(pipeline)['result']
 
 def avg_leaderboard(group):

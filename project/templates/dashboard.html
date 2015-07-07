@@ -32,13 +32,8 @@ My Dashboard
     {% endwith %}
 
     <br>
-
-    <form method="POST" action="">
-        {{form2.hidden_tag()}}
-        {{form2.edit_steps}}
-        <input type="submit" value="edit steps" class="complete">
-    </form>
- 
+        <a href="{{url_for('edit',user_id=user_id)}}")>Edit Step Entries</a>
+    <br>
 </div>
 
 <div class='dash_entry sub'>
