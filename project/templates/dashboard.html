@@ -55,18 +55,18 @@ My Dashboard
         {% endfor %}
 
 <br /> <h2>Highest Team Averages</h2>
-        {% for each in individual  %} <!-- REPLACE WITH TEAM AVG CODE -->
+        {% for each in team_avg  %} <!-- REPLACE WITH TEAM AVG CODE -->
       <div class="b">
         <div class="b_l"> {{ each['_id']}} </div>
-        <div class="b_r"> {{ each['totalsteps'] }}
+        <div class="b_r"> {{ each['average'] }}
       </div>
         {% endfor %}
 
 <br /> <h2>Highest Position Averages</h2>
-	 {% for each in individual  %} <!--REPLACE WITH POSITION AVG CODE -->
+	 {% for each in position_avg  %} <!--REPLACE WITH POSITION AVG CODE -->
       <div class="b">
         <div class="b_l"> {{ each['_id']}} </div>
-        <div class="b_r"> {{ each['totalsteps'] }}
+        <div class="b_r"> {{ each['average'] }}
       </div>
         {% endfor %}
 

@@ -12,7 +12,7 @@ import pprint
 
 #define user database
 db = client.steppodium
-users = db.users3
+users = db.users2
 
 def remove_steps(_id,date_list):
     # sets array elements within date_list to null
@@ -21,22 +21,30 @@ def remove_steps(_id,date_list):
     # removes null values from array
     users.update({"_id":ObjectId(_id)},{"$pull":{"entry":None}})
 
-def leaderboard(group,accumulator):
+def sum_leaderboard(group):
     pipeline = [ 
         {"$unwind" : "$entry" },
         {"$group": {"_id": group,
-            "totalsteps":{accumulator:"$entry.steps"},
+            "totalsteps":{"$sum":"$entry.steps"},
             "count":{"$sum":1}}},
         {"$sort": {"totalsteps":-1}},
         {"$limit":10}
     ]
+    
+    return users.aggregate(pipeline)['result']
 
-    #print users.aggregate(pipeline)['result']
-    #pprint(db.command(users,pipeline))
-    try:
-        return users.aggregate(pipeline)['result']
-    except:
-        return 0
+def avg_leaderboard(group):
+    pipeline = [ 
+        {"$unwind" : "$entry" },
+        {"$group": {"_id": {"group":group,"display_name":"$display_name"},
+            "totalsteps":{"$sum":"$entry.steps"}}},
+
+        {"$group":{"_id":"$_id.group",
+        "average":{"$avg":"$totalsteps"}}},
+        {"$sort":{"average":-1}}
+    ]
+    #pprint.pprint(db.command('aggregate','users2',pipeline=pipeline))
+    return users.aggregate(pipeline)['result']
 
 def team_email_list(team_number):
     team_list = []

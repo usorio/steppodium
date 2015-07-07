@@ -68,13 +68,19 @@ def dashboard(user_id):
 
     sum_steps = podium.sum_steps(user_id)
     user = podium.return_user_object(user_id)
-    individual = podium.leaderboard("$team.team_number","$avg")
+    #leaderboards
+    individual = podium.sum_leaderboard("$display_name")
+    team_avg = podium.avg_leaderboard("$team.team_number")
+    position_avg = podium.avg_leaderboard("$position")
+
     if form.validate_on_submit():
         steps = form.steps_walked.data
         podium.add_steps(user_id, steps)
         sum_steps = podium.sum_steps(user_id)
         #leaderboards
-        individual = podium.leaderboard("$team.team_number","$avg")
+        individual = podium.sum_leaderboard("$display_name")
+        team_avg = podium.avg_leaderboard("$team.team_number")
+        position_avg = podium.avg_leaderboard("$position")
     elif form2.validate_on_submit():
         #edit steps
         date_tuple = form2.edit_steps.data
@@ -82,7 +88,9 @@ def dashboard(user_id):
         podium.remove_steps(user_id,date_list)
     else:
         flash_errors(form)
-    return render_template('dashboard.html', form=form, form2=form2, sum_steps=sum_steps, recent_steps=[],user=user,individual=individual)
+    return render_template('dashboard.html', form=form, form2=form2,
+                          sum_steps=sum_steps, recent_steps=[],user=user,
+                          individual=individual,team_avg=team_avg,position_avg=position_avg)
 
 @app.route("/edit/<user_id>/", methods = ['GET', 'POST'])
 def edit(user_id):
