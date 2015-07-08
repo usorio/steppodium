@@ -169,7 +169,7 @@ def get_recent_steps(_id):
     search_object  = users.find_one({"_id":ObjectId(_id)})
     entry = search_object["entry"]
     entry.reverse()
-    entry = entry[0:10]
+    entry = entry[0:1000]
     return entry
 
 def return_id(email):
@@ -187,7 +187,8 @@ def return_user_object(user_id):
 def st2(new_list):
     new_tuple = []
     for x in new_list:
-        insert = (x['date'],x['date'][4:6] + '/' +  x['date'][6:8] + '/' +  x['date'][2:4] + "  -   " + str( x['steps']))
-        new_tuple.append(insert)
+        if x['date'] > 0:
+            insert = (x['date'],x['date'][4:6] + '/' +  x['date'][6:8] + '/' +  x['date'][2:4] + "  -   " + "{:,}".format( x['steps']))
+            new_tuple.append(insert)
     new_tuple = sorted(new_tuple)
     return new_tuple
