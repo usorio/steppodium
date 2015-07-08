@@ -12,7 +12,7 @@ import pprint
 
 #define user database
 db = client.steppodium
-users = db.users2
+users = db.users5
 
 def remove_steps(_id,date_list):
     # sets array elements within date_list to null

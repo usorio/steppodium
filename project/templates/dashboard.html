@@ -18,7 +18,7 @@ My Dashboard
 
     </form>
     <br />
-    <h2>Your Total Steps: <span class='sum'> {{ sum_steps }}</span> </h2>
+    <h2>Your Total Steps: <span class='sum'> {{ "{:,.0f}".format(sum_steps) }}</span> </h2>
 
 
 
@@ -45,7 +45,7 @@ My Dashboard
         {% for each in individual %}
       <div class="b">
         <div class="b_l"> {{ each['_id']}} </div>
-        <div class="b_r"> {{ each['totalsteps'] }}
+        <div class="b_r"> {{ "{:,.0f}".format(each['totalsteps']) }}
       </div> 
         {% endfor %}
 
@@ -53,7 +53,7 @@ My Dashboard
         {% for each in team_avg  %} <!-- REPLACE WITH TEAM AVG CODE -->
       <div class="b">
         <div class="b_l"> {{ each['_id']}} </div>
-        <div class="b_r"> {{ each['average'] }}
+        <div class="b_r"> {{ "{:,.2f}".format(each['average']) }}
       </div>
         {% endfor %}
 
@@ -61,7 +61,7 @@ My Dashboard
 	 {% for each in position_avg  %} <!--REPLACE WITH POSITION AVG CODE -->
       <div class="b">
         <div class="b_l"> {{ each['_id']}} </div>
-        <div class="b_r"> {{ each['average'] }}
+        <div class="b_r"> {{ "{:,.2f}".format(each['average']) }}
       </div>
         {% endfor %}
 

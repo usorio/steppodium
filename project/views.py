@@ -67,7 +67,7 @@ def dashboard(user_id):
     user = podium.return_user_object(user_id)
     #leaderboards
     individual = podium.sum_leaderboard("$display_name")
-    team_avg = podium.avg_leaderboard("$team.team_number")
+    team_avg = podium.avg_leaderboard("$team.team_name")
     position_avg = podium.avg_leaderboard("$position")
 
     if form.validate_on_submit():
@@ -76,7 +76,7 @@ def dashboard(user_id):
         sum_steps = podium.sum_steps(user_id)
         #leaderboards
         individual = podium.sum_leaderboard("$display_name")
-        team_avg = podium.avg_leaderboard("$team.team_number")
+        team_avg = podium.avg_leaderboard("$team.team_name")
         position_avg = podium.avg_leaderboard("$position")
     else:
         flash_errors(form)
