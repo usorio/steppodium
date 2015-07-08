@@ -7,12 +7,11 @@ My Dashboard
  <div class='dash_entry'>
           <img src="/static/images/steppodium_finalogo_400px.png" />
 
-<h1>{{ user.display_name }}'s Dashboard</h1>
+<h1>{{ user.display_name }}'s Dashboard ({{user.team.team_name}})</h1>
 
     <form method="POST" action="">
         {{form.hidden_tag()}}
-        <p>Enter your steps for today and press "+" to add them to your total.</p>
-        {{form.steps_walked(placeholder="step count here")}}
+        {{form.steps_walked(placeholder="add to step count")}}
 
 		<input type="submit" value="+" class="complete">
 

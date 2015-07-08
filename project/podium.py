@@ -190,5 +190,5 @@ def st2(new_list):
         if x['steps'] > 0:
             insert = (x['date'],x['date'][4:6] + '/' +  x['date'][6:8] + '/' +  x['date'][2:4] + "  -   " + "{:,}".format( x['steps']))
             new_tuple.append(insert)
-    new_tuple = sorted(new_tuple)
+    new_tuple = sorted(new_tuple, reverse=True)
     return new_tuple
