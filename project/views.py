@@ -69,6 +69,7 @@ def dashboard(user_id):
     individual = podium.sum_leaderboard("$display_name")
     team_avg = podium.avg_leaderboard("$team.team_name")
     position_avg = podium.avg_leaderboard("$position")
+    office_avg = podium.avg_leaderboard("$office")
 
     if form.validate_on_submit():
         steps = form.steps_walked.data
@@ -78,12 +79,14 @@ def dashboard(user_id):
         individual = podium.sum_leaderboard("$display_name")
         team_avg = podium.avg_leaderboard("$team.team_name")
         position_avg = podium.avg_leaderboard("$position")
+        office_avg = podium.avg_leaderboard("$office")
     else:
         flash_errors(form)
 
     return render_template('dashboard.html', form=form,
                           sum_steps=sum_steps, recent_steps=[],user=user,user_id=user_id,
-                          individual=individual,team_avg=team_avg,position_avg=position_avg)
+                          individual=individual,team_avg=team_avg,position_avg=position_avg,
+                          office_avg=office_avg)
 
 @app.route("/edit/<user_id>/", methods = ['GET', 'POST'])
 def edit(user_id):

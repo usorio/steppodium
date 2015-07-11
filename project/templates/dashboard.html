@@ -62,6 +62,14 @@ My Dashboard
       </div>
         {% endfor %}
 
+<br /> <h2>Highest Office Averages</h2>
+	 {% for each in office_avg  %} <!--REPLACE WITH POSITION AVG CODE -->
+      <div class="b">
+        <div class="b_l"> {{ each['_id']}} </div>
+        <div class="b_r"> {{ "{:,.2f}".format(each['average']) }}</div>
+      </div>
+        {% endfor %}
+
 </div>
 
     
