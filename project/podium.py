@@ -1,18 +1,19 @@
+import random
+import pprint
+import gmail_config
+
 from flask import render_template
 from project import app, mail, client, bcrypt
 from flask_mail import Message
 from bson.objectid import ObjectId
 from datetime import datetime
-from decorators import async
-import gmail_config
+from .decorators import my_async
 from bson import BSON
 from bson import json_util
-import random
-import pprint
 
 #define user database
 db = client.steppodium
-users = db.users5
+users = db.users
 
 def remove_steps(_id,date_list):
     # sets array elements within date_list to null
@@ -52,7 +53,7 @@ def team_email_list(team_number):
         email = each["email"]
         team_list.append(email)
      
-    print team_list
+    print(team_list)
     return team_list
 
 def make_teams():
@@ -69,8 +70,8 @@ def make_teams():
         #add random_user to team     
         users.update({"_id":ObjectId(_id)},{"$set":{"team.team_number":team_number,
                      "team.player_number":player_number}})
-        print "team number:" + str(team_number)
-        print "team player:" + str(player_number)
+        print("team number:" + str(team_number))
+        print("team player:" + str(player_number))
 
         #reset count of unassigned teams
         count = db.users.find({"password":{"$exists": True},"team":{"$exists": False}}).count()
@@ -82,7 +83,7 @@ def make_teams():
         else:
             player_number += 1
 
-@async
+@my_async
 def send_async_email(app, msg):
     with app.app_context():
         mail.send(msg)
@@ -139,12 +140,12 @@ def insert_user(email, *args):
 
 def update_user(_id,dname,password,position,office):
     #encrypt password
-    password = bcrypt.generate_password_hash(password)
+    password = bcrypt.generate_password_hash(password).decode('utf-8')
     users.update({"_id":ObjectId(_id)},{"$set":{"display_name":dname,
         "password":password,"position":position,"office":office}})
 
 def update_password(_id,password):
-    password = bcrypt.generate_password_hash(password)
+    password = bcrypt.generate_password_hash(password).decode('utf-8')
     users.update({"_id":ObjectId(_id)},{"$set":{"password":password}})
 
 def add_steps(_id,steps):

@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_mail import Mail
-from flask.ext.bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt
 from gmail_config import MAIL_USERNAME, MAIL_PASSWORD, SECRET_KEY #SERVER_NAME
 from pymongo import MongoClient
 

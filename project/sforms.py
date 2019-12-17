@@ -2,7 +2,7 @@ from wtforms import validators, StringField,TextField, IntegerField, SelectField
 from flask_wtf import Form
 from wtforms.fields.html5 import EmailField
 
-offices = ['Mount Laurel','Radnor','Johnstown','Cherry Hill','Pittsburgh','Philadelphia','Princeton']
+offices = ['Austin','Mount Laurel','Radnor','Johnstown','Cherry Hill','Pittsburgh','Philadelphia','Princeton']
 positions = ['Intern','Account Manager','Compliance','Consultant','Analyst','Sales','IT','Administration']
 
 
@@ -31,12 +31,12 @@ def custom_email(company):
 
 #email on main page
 class emailOnly(Form):
-    email = EmailField('Company Email',validators=[validators.DataRequired(),custom_email('ajg')])
+    email = EmailField('Email',validators=[validators.DataRequired()]) #,custom_email('ajg')])
 
 #if user exist then prompt for password
 #email is pulled in from above
 class loginUser(emailOnly):
-    password = PasswordField('Enter Password',validators=[validators.DataRequired()])
+    password = PasswordField('Password',validators=[validators.DataRequired()])
 
 #if user does not exist then redirect to register
 class registerUser(Form):

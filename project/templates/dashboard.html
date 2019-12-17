@@ -7,7 +7,7 @@ My Dashboard
  <div class='dash_entry'>
           <img src="/static/images/steppodium_finalogo_400px.png" />
 
-<h1>{{ user.display_name }}'s Dashboard ({{user.team.team_name}})</h1>
+          <h1>{{ user.display_name }}'s Dashboard <! -- re-insert curly braces (user.team.team_name) --> </h1>
 
     <form method="POST" action="">
         {{form.hidden_tag()}}
@@ -36,6 +36,14 @@ My Dashboard
 </div>
 
 <div class='dash_entry sub'>
+ <h1>Leaderboards </h1>
+
+ Leaderboards only available during competitiion.
+</div>
+
+<!--
+<div class='dash_entry sub'>
+
  <h1>Leaderboards </h1>
 
 <br /> <h2>Individual Leaders</h2> 
@@ -71,6 +79,6 @@ My Dashboard
         {% endfor %}
 
 </div>
-
+-->
     
 {% endblock %}

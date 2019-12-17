@@ -5,6 +5,8 @@
 	</title> 
 	
 	
+ <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}" />
+
   <style type='text/css'>
   	body, div, input {
  font-family: "Helvetica Neue","Helvetica",arial,sans serif;   
@@ -129,8 +131,9 @@ input {
 	  
 	  <div class='verify'>
           <h2>Congratulations! You are successfully registered.</h2> <br><br>
-          <font size ="4">You missed the registration period, but don't worry. You will be added to a team soon!<br><br>
-          Best of luck!</font>
+         <div class="r pw"> <a href="{{url_for('login')}}">Go to Login</a>
+         </div>
+
 	  </div>
 	</div>
 	

@@ -1,8 +1,9 @@
+import project.podium as podium
+
 from flask import request, redirect, render_template, url_for, flash
 from project import app,mail
 from flask_mail import Message
-from sforms import emailOnly, loginUser, registerUser, enterSteps, passwordsOnly, editSteps
-import podium
+from project.sforms import emailOnly, loginUser, registerUser, enterSteps, passwordsOnly, editSteps
 from bson.objectid import ObjectId
 
 @app.route("/",methods = ['GET','POST'])
@@ -62,31 +63,35 @@ def register(user_id):
 @app.route("/dashboard/<user_id>/", methods = ['GET', 'POST'])
 def dashboard(user_id):
     form = enterSteps()
-    tagtuple = podium.st2(podium.get_recent_steps(user_id))
+    #tagtuple = podium.st2(podium.get_recent_steps(user_id))
     sum_steps = podium.sum_steps(user_id)
     user = podium.return_user_object(user_id)
+    
     #leaderboards
-    individual = podium.sum_leaderboard("$display_name")
-    team_avg = podium.avg_leaderboard("$team.team_name")
-    position_avg = podium.avg_leaderboard("$position")
-    office_avg = podium.avg_leaderboard("$office")
+    #individual = podium.sum_leaderboard("$display_name")
+    #team_avg = podium.avg_leaderboard("$team.team_name")
+    #position_avg = podium.avg_leaderboard("$position")
+    #office_avg = podium.avg_leaderboard("$office")
 
     if form.validate_on_submit():
         steps = form.steps_walked.data
         podium.add_steps(user_id, steps)
         sum_steps = podium.sum_steps(user_id)
         #leaderboards
-        individual = podium.sum_leaderboard("$display_name")
-        team_avg = podium.avg_leaderboard("$team.team_name")
-        position_avg = podium.avg_leaderboard("$position")
-        office_avg = podium.avg_leaderboard("$office")
+        #individual = podium.sum_leaderboard("$display_name")
+        #team_avg = podium.avg_leaderboard("$team.team_name")
+        #position_avg = podium.avg_leaderboard("$position")
+        #office_avg = podium.avg_leaderboard("$office")
     else:
         flash_errors(form)
+    
+    #return render_template('dashboard.html', form=form,
+    #                      sum_steps=sum_steps, recent_steps=[],user=user,user_id=user_id,
+    #                      individual=individual,team_avg=team_avg,position_avg=position_avg,
+    #                      office_avg=office_avg)
 
     return render_template('dashboard.html', form=form,
-                          sum_steps=sum_steps, recent_steps=[],user=user,user_id=user_id,
-                          individual=individual,team_avg=team_avg,position_avg=position_avg,
-                          office_avg=office_avg)
+                          sum_steps=sum_steps, recent_steps=[],user=user,user_id=user_id)
 
 @app.route("/edit/<user_id>/", methods = ['GET', 'POST'])
 def edit(user_id):
