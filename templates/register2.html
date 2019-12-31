@@ -1,0 +1,357 @@
+  <head> 
+  <title>
+	Steppodium - Create Profile
+	</title> 	
+	
+	<style type="text/css">
+	body, div, input {
+ font-family: "Helvetica Neue","Helvetica",Arial,sans serif; 
+}
+
+body {
+  background:url(https://static1.squarespace.com/static/54dac774e4b07abb47123591/t/55778799e4b0549e5e20ff36/1433896860113/?format=2500w&storage=local);
+  background-position: 10%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; 
+  background-attachment: fixed;
+}
+
+.profile {
+  margin: 3% auto;
+  min-width: 300px;
+  max-width: 600px;
+  background-color:rgba(255,255,255,0.8);
+  padding:45px;
+  text-align:left;
+  
+  border-radius: 50px; 
+  -moz-border-radius: 50px; 
+  -webkit-border-radius: 50px; 
+  border: 0px solid #000000;
+}
+
+.register {
+  padding: 45px 15px 15px 15px; 
+  
+}
+
+.register input.email_box {
+  font-size: 2em;
+  text-align: center;
+  background: none;
+  height: 45px;
+  width: 100%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 3px solid #10A7ee;
+  margin-bottom: 20px;
+}
+
+input.complete {
+  height:60px;
+  margin: 20px 0px 20px 0px;
+  display:block;
+  float:right;
+  cursor: hand;
+  min-width: 255px;
+  color: #FFFFFF;
+  background: #10A7ee;
+  border-radius: 50px; 
+  -moz-border-radius: 50px; 
+  -webkit-border-radius: 50px; 
+  border: 0px solid #000000;
+  font-size: 1.6em;
+  font-weight: 600;
+  text-transform: lowercase;
+  
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+
+input.submit:hover,
+input.submit:focus,
+input.complete:hover,
+input.complete:focus{
+    transform: scale(1.1);
+}
+
+input.complete:active {
+  color: #545454;
+}
+
+input {
+  outline: 0;
+}
+
+/* Left DIV */
+.l
+{
+width: 37%;
+margin-top: 8px;
+padding: 0px;
+ 
+float: left;
+text-align: right;
+  
+  font-size: 1.5em;
+  height: 36px;
+}
+ 
+/* Right DIV */
+.r
+{
+width: 60%;
+margin: 0px;
+padding: 0px;
+ 
+float: right;
+ 
+text-align: left;
+}
+.r input {
+font-size: 1.5em;
+  text-align: left;
+  background: none;
+  height: 36px;
+  width: 100%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 3px solid #10A7ee;
+  margin-bottom: 10px;
+}
+
+.r select {
+  color:#FFF; 
+  font-size: 1.5em;
+  text-align: left;
+  background: #10A7ee;
+  height: 48px;
+  width: 102%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 3px solid #10A7ee;
+  outline: 0;
+  padding-left: 5px;
+   border-radius: 20px; 
+  -moz-border-radius: 20px; 
+  -webkit-border-radius: 20px; 
+}
+ 
+.a
+{
+clear: both;
+ margin:auto;
+padding: 10px;
+}
+
+fieldset
+{
+-moz-border-radius: 7px;
+border-top: 1px #dddddd solid;
+  border-bottom: 1px #dddddd solid;
+  border-right: 0px;
+  border-left: 0px;
+padding: 10px 0px 20px 0px;
+width: 95%;
+margin-top: 10px;
+}
+ 
+fieldset legend
+{
+ 
+font-family: "Helvetica Neue","Helvetica","Arial",sans serif;
+font-weight: 600;
+font-size: 25px;
+ 
+padding-right: 5px;
+padding-left: 5px;
+padding-top: 2px;
+padding-bottom: 2px;
+}
+
+/* Label */
+label
+{
+width: 140px;
+padding-left: 20px;
+margin: 5px;
+float: left;
+text-align: left;
+}
+ 
+/* Input, Textarea */
+input, textarea
+{
+margin: 5px;
+padding: 0px;
+float: left;
+}
+ 
+/* BR */
+ 
+br
+{
+clear: left;
+}
+
+/* AVATARS */
+label.avatars {
+  width:50px;
+  padding-left: 0px;
+  margin-left:0px;
+  margin-right:5px;
+  margin-top: 10px;
+}
+
+label.avatars > input{ /* HIDE RADIO */
+  visibility: hidden; /* Makes input not-clickable */
+  position: absolute; /* Remove input from document flow */
+}
+label.avatars > input + img{ /* IMAGE STYLES */
+  cursor:pointer;
+  border:4px solid transparent;
+  border-radius: 10px; 
+  -moz-border-radius: 10px; 
+  -webkit-border-radius: 10px; 
+  width: 50px; 
+  height:50px;
+}
+label.avatars > input:checked + img{ /* (RADIO CHECKED) IMAGE STYLES */
+  border:4px solid #10A7ee;
+}
+
+.scale_img {
+  width:100%;
+  max-width: 320px;
+}
+
+.footer {
+  text-align: center;
+  color:#fff;
+  text-transform: lowercase;
+  font-weight: 600;
+}
+	</style>
+  </head>
+  
+  <body>
+	
+	<div class='profile'>
+	  <img src='https://static1.squarespace.com/static/54dac774e4b07abb47123591/t/55779696e4b00fe50a257726/1433900695092/?format=2500w&storage=local' class='scale_img'>
+	  
+	  <h1>create profile</h1>
+	  
+	  <form name="register" method="post" action="">
+ 
+<fieldset><legend>account details</legend>
+ 
+<div class="a">
+  <div class="l">email address</div>
+  <div class="r"><INPUT type="text" name="email" placeholder="your_name@ajg.com"></div>
+</div>
+ 
+<div class="a">
+  <div class="l">create password</div>
+  <div class="r"><INPUT type="password" name="password"></div>
+</div>
+ 
+<div class="a">
+  <div class="l">confirm password</div>
+  <div class="r"><INPUT type="password" name="confirm_password"></div>
+</div>
+		</fieldset>
+		<br/>
+<fieldset><legend>personal details</legend>
+ 
+<div class="a">
+  <div class="l">display name</div>
+  <div class="r"><INPUT type="text" name="display_name" placeholder="e.g., rad_runner05"></div>
+</div>
+ 
+<div class="a">
+  <div class="l">office location</div>
+  <div class="r">
+	<select name="office_location">
+	  <option value="Radnor" selected>Radnor, PA</option>
+	  <option value="Location2">Location 2</option>
+	  <option value="Location3">Location 3</option>
+	  <option value="Location4">Location 4</option>
+    </select>
+  </div>
+</div>
+ 
+<div class="a">
+  <div class="l">work position</div>
+  <div class="r">
+	<select name="work_position">
+	  <option value="Sr_Analyst" selected>Sr. Analyst</option>
+	  <option value="Position2">Position 2</option>
+	  <option value="Position3">Position 3</option>
+	  <option value="Position4">Position 4</option>
+    </select>
+  </div>
+</div>
+  
+  <div class="a">
+  <div class="l">choose avatar</div>
+  <div class="r">
+	<label class="avatars">
+	  <input type="radio" name="avatar" value="av1" />
+      <img src="https://cloud.githubusercontent.com/assets/12660898/8145307/d013392e-11d0-11e5-832b-c6fb57b9a25f.jpg">
+	</label>
+	<label class="avatars">
+	  <input type="radio" name="avatar" value="av2" />
+      <img src="https://cloud.githubusercontent.com/assets/12660898/8145317/059b8f7e-11d1-11e5-8a5f-e2cada5c9675.jpg">
+	</label>
+	<label class="avatars">
+	  <input type="radio" name="avatar" value="av3" />
+      <img src="https://cloud.githubusercontent.com/assets/12660898/8145355/c5bda372-11d2-11e5-8f91-aa6a0341c4fe.jpg">
+	</label>
+	<label class="avatars">
+	  <input type="radio" name="avatar" value="av4" />
+      <img src="https://cloud.githubusercontent.com/assets/12660898/8145311/d0159c1e-11d0-11e5-9d96-6cf97e8e78fa.jpg">
+	</label>
+	<label class="avatars">
+	  <input type="radio" name="avatar" value="av5" />
+      <img src="https://cloud.githubusercontent.com/assets/12660898/8145309/d0152676-11d0-11e5-9dfe-257b638ba848.jpg">
+	</label>
+	<label class="avatars">
+	  <input type="radio" name="avatar" value="av6" />
+      <img src="https://cloud.githubusercontent.com/assets/12660898/8145310/d0154c28-11d0-11e5-9b90-b3cda6de197e.jpg">
+	</label>
+    </select>
+  </div>
+</div>
+  
+		</fieldset>
+	  
+	  <input type="submit" class="complete" value="complete signup!" />
+	  
+	 </form>
+	 <br/>
+	 <br/>
+	 <br/>
+	</div>
+	
+	
+	<div class='footer'>
+	  &copy; 2015 usorio systems. all rights reserved.
+	</div>
+  </body>
+  
+</html>

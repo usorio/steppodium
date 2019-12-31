@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+  
+  <div class='user_login'>
+          <img src="/static/images/steppodium_finalogo_400px.png" />
+
+<h1>Login</h1>
+
+
+   <form method="POST" action="" class="loginForm">
+        {{form.hidden_tag()}}
+    <div class="a">
+       <div class="l"> {{form.email.label}} </div>
+       <div class="r"> {{form.email(placeholder="your_name@AJG.com")}}</div>
+    </div>
+    <div class="a">
+       <div class="l"> {{form.password.label}} </div>
+       <div class="r"> {{form.password}} </div>
+    </div>
+    <div class="a">
+       <div class="r pw"> <a href="{{url_for('forgot_password')}}">forgot password?</a> &nbsp;|
+         <a href="{{url_for('welcome')}}">create account!</a>
+       </div>
+    </div>
+ <br/>
+        <input type="submit" class="complete"  value="go!">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <p><div class="{{ category }}">{{ message }}</div></p>
+                {% endfor %}
+            {% else %}
+            {% endif %}
+        {% endwith %}
+
+
+   </form>
+<br />
+<br />
+<br />
+<br />  
+        </div>
+{% endblock %}
+<br />
+<br />	
+	</div>
+
+<div class='footer'>
+	  &copy; 2015 usorio systems. all rights reserved.
+	</div>
+
+</body>
+</html>

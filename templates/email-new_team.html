@@ -1,0 +1,14 @@
+Hello Team {{team_number}}!<br><br>
+
+Your Teammates are: <br><ul>
+    {% for item in team_list %} 
+        <li> <a href=“mailto:{{ item }}”> {{ item }} </a> </li>
+    {% endfor %}</ul>
+
+When you are ready, email us back with a team name! Until then, you’ll be referred to as Team {{team_number}}.<br>
+
+<p><a href="{{url_for('login')}}">Login here!</a></p>
+
+<p>Best of luck,</p>
+
+Team Podium
