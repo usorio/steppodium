@@ -1,0 +1,13 @@
+*.pyc
+*.swp
+.env
+emails.py
+test.py
+test_db.py
+virt
+
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

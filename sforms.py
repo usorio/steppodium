@@ -1,5 +1,5 @@
 from wtforms import validators, StringField,TextField, IntegerField, SelectField, ValidationError, SubmitField, PasswordField, SelectMultipleField, widgets
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms.fields.html5 import EmailField
 
 offices = ['Austin','Mount Laurel','Radnor','Johnstown','Cherry Hill','Pittsburgh','Philadelphia','Princeton']
@@ -30,7 +30,7 @@ def custom_email(company):
     return _custom_email
 
 #email on main page
-class emailOnly(Form):
+class emailOnly(FlaskForm):
     email = EmailField('Email',validators=[validators.DataRequired()]) #,custom_email('ajg')])
 
 #if user exist then prompt for password
@@ -39,7 +39,7 @@ class loginUser(emailOnly):
     password = PasswordField('Password',validators=[validators.DataRequired()])
 
 #if user does not exist then redirect to register
-class registerUser(Form):
+class registerUser(FlaskForm):
     display_name = StringField('Display Name',validators=[validators.DataRequired()])
     password = PasswordField('Enter Password',validators=[
         validators.DataRequired(),
@@ -48,7 +48,7 @@ class registerUser(Form):
     position = SelectField('Job Title',choices=tuple_list(positions))
     office = SelectField('Office',choices=tuple_list(offices))
 
-class passwordsOnly(Form):
+class passwordsOnly(FlaskForm):
     password = PasswordField('Enter Password',validators=[
         validators.DataRequired(),
         validators.EqualTo('confirm', message = 'Passwords must match')])
@@ -64,10 +64,10 @@ class MultiCheckboxField(SelectMultipleField):
     widget = widgets.ListWidget(prefix_label=False)
     option_widget = widgets.CheckboxInput()
 
-class enterSteps(Form):
+class enterSteps(FlaskForm):
     steps_walked = IntegerField('Steps Entry', validators=[validators.NumberRange(min=0, max=50000)])
 
-class editSteps(Form):
+class editSteps(FlaskForm):
     edit_steps = MultiCheckboxField('edit_steps', validators=[validators.Required()])
     #def __init__(self,tagtuple):
     #    self.tagtuple = tagtuple

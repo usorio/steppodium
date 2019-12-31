@@ -1,13 +1,13 @@
 import random
 import pprint
-import gmail_config
+import os
 
 from flask import render_template
-from project import app, mail, client, bcrypt
+from application import application, mail, client, bcrypt
 from flask_mail import Message
 from bson.objectid import ObjectId
 from datetime import datetime
-from .decorators import my_async
+from decorators import my_async
 from bson import BSON
 from bson import json_util
 
@@ -85,24 +85,24 @@ def make_teams():
 
 @my_async
 def send_async_email(app, msg):
-    with app.app_context():
+    with application.app_context():
         mail.send(msg)
 
 def sendemail(esubject, esender, erecipients, ehtml):
     msg = Message(esubject, sender = esender, recipients = erecipients)
     msg.html = ehtml
-    send_async_email(app,msg)
+    send_async_email(application,msg)
 
 def sendconfirm(email, user_id):
     erecipients = [email]
-    esender = gmail_config.MAIL_USERNAME
+    esender = os.environ.get('MAIL_USERNAME')
     esubject = 'You are almost registered!'
     ehtml = render_template('email-premailer.html',user_id=user_id)
     sendemail(esubject, esender, erecipients, ehtml)
 
 def send_password_link(email,user_id):
     erecipients = [email]
-    esender = gmail_config.MAIL_USERNAME
+    esender = os.environ.get('MAIL_USERNAME')
     esubject = 'Password reset link.'
     ehtml = render_template('password_link.html',user_id=user_id)
     sendemail(esubject, esender, erecipients, ehtml)
@@ -111,7 +111,7 @@ def send_team_email():
     for i in range(1,8):
         team_list = team_email_list(i)
         erecipients = ["zac.demi@gmail.com","dan.k.lee.0@gmail.com"] #team_list
-        esender = gmail_config.MAIL_USERNAME
+        esender = os.environ.get('MAIL_USERNAME')
         esubject = "Welcome to your team!"
         ehtml = render_template('email-new_team.html',team_number=i,team_list=team_list)
         sendemail(esubject, esender, erecipients, ehtml)
