@@ -19,29 +19,29 @@ MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 MAIL_DEFAULT_SENDER = os.environ.get('MAIL_USERNAME')
 
 #initiate application
-application = Flask(__name__)
-application.config['WTF_CSRF_SECRET_KEY'] = os.environ.get('SECRET_KEY')
-application.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app = Flask(__name__)
+app.config['WTF_CSRF_SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 
 #initiate config
-application.config.from_object(__name__)
+app.config.from_object(__name__)
 
 #initialize mail: note after config set
-mail = Mail(application)
+mail = Mail(app)
 
 #initiate MONGODB
 MONGO_PASSWORD = os.environ.get('MONGO_PASSWORD')
 client = MongoClient(f"mongodb+srv://zacdemi:{MONGO_PASSWORD}@cluster0-qrc2l.mongodb.net/test?retryWrites=true&w=majority")
 
 #initiate Bcrypt for passwords
-bcrypt = Bcrypt(application)
+bcrypt = Bcrypt(app)
 
-@application.route("/",methods = ['GET','POST'])
+@app.route("/",methods = ['GET','POST'])
 def index():
     #redirect to login page
     return redirect(url_for('login'))
 
-@application.route("/welcome/",methods = ['GET','POST'])
+@app.route("/welcome/",methods = ['GET','POST'])
 def welcome():
     form = emailOnly()
     if form.validate_on_submit():
@@ -56,7 +56,7 @@ def welcome():
 
     return render_template('welcome.html',form=form)
     
-@application.route("/login/", methods = ['GET','POST'])
+@app.route("/login/", methods = ['GET','POST'])
 def login():
     form = loginUser()
 
@@ -75,7 +75,7 @@ def login():
 
     return render_template('login.html',form=form)
 
-@application.route("/register/<user_id>/", methods = ['GET','POST'])
+@app.route("/register/<user_id>/", methods = ['GET','POST'])
 def register(user_id):
     form = registerUser()
     if form.validate_on_submit():
@@ -90,7 +90,7 @@ def register(user_id):
         flash_errors(form)
     return render_template('register.html',form=form)
 
-@application.route("/dashboard/<user_id>/", methods = ['GET', 'POST'])
+@app.route("/dashboard/<user_id>/", methods = ['GET', 'POST'])
 def dashboard(user_id):
     form = enterSteps()
     #tagtuple = podium.st2(podium.get_recent_steps(user_id))
@@ -123,7 +123,7 @@ def dashboard(user_id):
     return render_template('dashboard.html', form=form,
                           sum_steps=sum_steps, recent_steps=[],user=user,user_id=user_id)
 
-@application.route("/edit/<user_id>/", methods = ['GET', 'POST'])
+@app.route("/edit/<user_id>/", methods = ['GET', 'POST'])
 def edit(user_id):
     tagtuple = podium.st2(podium.get_recent_steps(user_id))
     form2 = editSteps()
@@ -140,11 +140,11 @@ def edit(user_id):
 
     return render_template('edit_steps.html', form2=form2, user_id=user_id)
 
-@application.route("/success/", methods = ['GET'])
+@app.route("/success/", methods = ['GET'])
 def success():
     return render_template('success.html')
            
-@application.route("/forgot_password/", methods = ['GET','POST'])
+@app.route("/forgot_password/", methods = ['GET','POST'])
 def forgot_password():
     form = emailOnly()
     if form.validate_on_submit():
@@ -157,7 +157,7 @@ def forgot_password():
  
     return render_template('forgot_password.html', form=form)
     
-@application.route("/reset_password/<user_id>/", methods = ['GET','POST'])
+@app.route("/reset_password/<user_id>/", methods = ['GET','POST'])
 def reset_password(user_id):
     form = passwordsOnly()
     if form.validate_on_submit():
@@ -175,4 +175,4 @@ def flash_errors(form):
             flash(u"Error in the %s field - %s" % (getattr(form, field).label.text,error),'error')
 
 if __name__ == "__main__":
-    application.run(host='127.0.0.1', port=5030)
+    app.run(host='127.0.0.1', port=5030)

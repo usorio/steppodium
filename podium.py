@@ -3,7 +3,7 @@ import pprint
 import os
 
 from flask import render_template
-from application import application, mail, client, bcrypt
+from app import app, mail, client, bcrypt
 from flask_mail import Message
 from bson.objectid import ObjectId
 from datetime import datetime
@@ -85,13 +85,13 @@ def make_teams():
 
 @my_async
 def send_async_email(app, msg):
-    with application.app_context():
+    with app.app_context():
         mail.send(msg)
 
 def sendemail(esubject, esender, erecipients, ehtml):
     msg = Message(esubject, sender = esender, recipients = erecipients)
     msg.html = ehtml
-    send_async_email(application,msg)
+    send_async_email(app,msg)
 
 def sendconfirm(email, user_id):
     erecipients = [email]
