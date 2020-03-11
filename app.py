@@ -175,4 +175,4 @@ def flash_errors(form):
             flash(u"Error in the %s field - %s" % (getattr(form, field).label.text,error),'error')
 
 if __name__ == "__main__":
-    app.run(host='127.0.0.1', port=5030)
+    app.run()
