@@ -2,18 +2,15 @@ import random
 import pprint
 import os
 
+from main import mongo, app, mail, bcrypt
+from main.decorators import my_async
 from flask import render_template
-from app import app, mail, client, bcrypt
 from flask_mail import Message
 from bson.objectid import ObjectId
 from datetime import datetime
-from decorators import my_async
-from bson import BSON
-from bson import json_util
 
-#define user database
-db = client.steppodium
-users = db.users
+#users db
+users = mongo.db.users
 
 def remove_steps(_id,date_list):
     # sets array elements within date_list to null

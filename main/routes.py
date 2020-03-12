@@ -1,40 +1,10 @@
 import os
-import podium
+import main.podium
 
-from sforms import emailOnly, loginUser, registerUser, enterSteps, passwordsOnly, editSteps
-from flask import Flask, request, redirect, render_template, url_for, flash
-from flask_mail import Mail, Message
-from flask_bcrypt import Bcrypt
-from pymongo import MongoClient
+from flask import request, redirect, render_template, url_for, flash
+from main import app
+from main.sforms import emailOnly, loginUser, registerUser, enterSteps, passwordsOnly, editSteps
 from bson.objectid import ObjectId
-
-# set config mail server
-DEBUG = True
-MAIL_SERVER = 'smtp.googlemail.com'
-MAIL_PORT = 465
-MAIL_USE_TLS = False
-MAIL_USE_SSL = True
-MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-MAIL_DEFAULT_SENDER = os.environ.get('MAIL_USERNAME')
-
-#initiate application
-app = Flask(__name__)
-app.config['WTF_CSRF_SECRET_KEY'] = os.environ.get('SECRET_KEY')
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-
-#initiate config
-app.config.from_object(__name__)
-
-#initialize mail: note after config set
-mail = Mail(app)
-
-#initiate MONGODB
-MONGO_PASSWORD = os.environ.get('MONGO_PASSWORD')
-client = MongoClient(f"mongodb+srv://zacdemi:{MONGO_PASSWORD}@cluster0-qrc2l.mongodb.net/test?retryWrites=true&w=majority")
-
-#initiate Bcrypt for passwords
-bcrypt = Bcrypt(app)
 
 @app.route("/",methods = ['GET','POST'])
 def index():
