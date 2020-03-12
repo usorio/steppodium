@@ -9,7 +9,8 @@ MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
 MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 MAIL_DEFAULT_SENDER = os.environ.get('MAIL_USERNAME')
 
-MONGO_URI = f"mongodb+srv://zacdemi:{os.environ.get('MONGO_PASSWORD')}@cluster0-qrc2l.mongodb.net/test?retryWrites=true&w=majority"
+MONGO_PASSWORD = os.environ.get('MONGO_PASSWORD')
+MONGO_URI = f"mongodb+srv://zacdemi:{MONGO_PASSWORD}@cluster0-qrc2l.mongodb.net/steppodium?retryWrites=true&w=majority"
 
 WTF_CSRF_SECRET_KEY = os.environ.get('SECRET_KEY')
 SECRET_KEY = os.environ.get('SECRET_KEY')

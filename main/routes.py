@@ -1,5 +1,5 @@
 import os
-import main.podium
+import main.podium as podium
 
 from flask import request, redirect, render_template, url_for, flash
 from main import app
@@ -20,7 +20,7 @@ def welcome():
             flash("An email has already been sent to this address with registration information! Make sure to check your JUNK mailbox.")
         else:
             podium.insert_user(email)
-            flash("Thanks for signing up! Check your email for a confirmation link! Email may be sent to JUNK mail.")
+            flash("Thanks for signing up! Check your email for a confirmation link.")
     else:
         flash_errors(form)
 

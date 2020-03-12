@@ -71,7 +71,7 @@ def make_teams():
         print("team player:" + str(player_number))
 
         #reset count of unassigned teams
-        count = db.users.find({"password":{"$exists": True},"team":{"$exists": False}}).count()
+        count = users.find({"password":{"$exists": True},"team":{"$exists": False}}).count()
 
         #increment team and player numbers
         if player_number == team_max:
@@ -118,7 +118,7 @@ def email_exists(email):
     return in_database > 0
 
 def email_registered(email):
-    in_database = db.users.find({"email":email, "password":{"$exists": True}}).count()
+    in_database = users.find({"email":email, "password":{"$exists": True}}).count()
     return in_database > 0
 
 def unique_display(_id,field,value):
